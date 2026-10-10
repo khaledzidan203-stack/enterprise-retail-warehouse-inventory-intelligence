@@ -54,7 +54,7 @@ All images are **captures of the retained historical Power BI report**, not mock
 | [![Sales and stockout](DASHBORD_SCREEN_SHOTS/5_Sales%20%26%20Stockout%20Performance.png)](DASHBORD_SCREEN_SHOTS/5_Sales%20%26%20Stockout%20Performance.png) | [![Supplier execution](DASHBORD_SCREEN_SHOTS/6_Supplier%20Execution%20Simulation.png)](DASHBORD_SCREEN_SHOTS/6_Supplier%20Execution%20Simulation.png) |
 | Observed demand, modelled shortage | Simulated orders, receipts and open lines |
 | **07 · Inventory Opportunities** | **08 · Quality & Methodology** |
-| [![Inventory opportunities](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20(Exploratory).png)](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20(Exploratory).png) | [![Data quality](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png)](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png) |
+| [![Inventory opportunities](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20%28Exploratory%29.png)](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20%28Exploratory%29.png) | [![Data quality](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png)](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png) |
 | Exploratory zero-demand stock | Evidence, boundaries and methods |
 
 **Native report:** [Power BI project (PBIP/PBIR/TMDL)](powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip) · [Semantic model](powerbi/) · [Page-by-page guide](docs/REPORT_PAGE_GUIDE.md).
