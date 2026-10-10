@@ -1,95 +1,193 @@
 # Enterprise Retail Warehouse & Inventory Intelligence
 
-A reproducible Python and SQLite analytical pipeline with an existing eight-page Power BI report. It separates observed demand and customer returns from simulated stock, service and supplier execution.
+### From open retail data to governed warehouse analytics, inventory simulation and an 8-page Power BI report
 
-**Status: PARTIAL_REPRODUCIBILITY.** Observed transformations and all five dimensions reproduce the private historical references. The new, documented `NEW_REPLAY_V1` simulation runs and balances, but does **not** reproduce the historical V2 simulation. Power BI configuration has passed static checks; Desktop refresh and visual behavior are **not verified**. This release preserves the original historical report and datasets; running NEW_REPLAY_V1 produces a different scenario.
+[![Publication integrity checks](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml)
+![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQL-SQLite-003B57?logo=sqlite&logoColor=white)
+![Power BI PBIP](https://img.shields.io/badge/Power_BI-PBIP%20%7C%20PBIR%20%7C%20TMDL-F2C811?logo=powerbi&logoColor=black)
+[![Source data CC BY 4.0](https://img.shields.io/badge/Source_Data-CC_BY_4.0-555555)](DATA_SOURCES.md)
 
-## Open the original historical Power BI report
+**A portfolio implementation of multi-store inventory and distribution-center intelligence.** The repository combines licensed public retail sales/inventory data, governed analytical datasets, a preserved Power BI semantic model, Python transformations, an executable SQLite analytical layer and explicit simulation/validation evidence.
 
-The complete PBIP/PBIR/TMDL project, all eight pages, 112 visuals, 51 DAX measures, semantic relationships, eight screenshots and original report CSVs are included. **No simulation run is required to view the historical report.**
+**Explore:** [Dashboard gallery](#power-bi-dashboard-gallery) · [Open the report](#quick-start-open-the-original-power-bi-report) · [Architecture](#analytical-architecture) · [Historical analytical baseline](#historical-report-baseline) · [Python & SQL](#run-the-analytical-code) · [Evidence & limitations](#validation-and-reproducibility-status)
+
+[![Executive Overview — actual historical Power BI screenshot](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)
+
+> **Two distinct deliverables:** the **original historical V2 Power BI report and its nine datasets** are included and preserved. The reconstructed **`NEW_REPLAY_V1` Python/SQLite simulation** is executable and deterministic, but intentionally **does not reproduce all historical simulated values**. Screenshots show the historical report, not the new replay or fictional sample. Power BI Desktop opening and refresh have **not yet been verified on another machine**.
+
+## Project at a glance
+
+| Scope | Verified repository artifact / baseline |
+|:---|:---|
+| Reporting | **8 Power BI pages · 112 visuals · 51 explicit DAX measures · 18 relationships** |
+| Report assets | Complete `.pbip` + PBIR/TMDL semantic/report definitions + **8 authentic screenshots** |
+| Model | **5 dimensions + 4 fact tables**; nine CSV imports with a single configurable `DataRoot` |
+| Retail source | **125,751 sales rows · 284,755 inventory interval rows** |
+| Entities | **40 stores · 2,326 products**; **4 synthetic distribution centers · 30 suppliers** in the enriched model |
+| Observation horizon | **2025-06-01 to 2026-04-24**, with report snapshot **2026-04-24** |
+| Engineering | Python 3.11+ · standard-library CSV/Decimal · SQLite SQL · automated regression/reconciliation checks |
+| Source rights | **Mendeley Data, CC BY 4.0**; original two RAW CSV SHA-256 hashes matched the publisher |
+
+The geographical assignments, supplier operating parameters, ABC classification and replenishment policies are supplied **synthetic/modeling inputs**, not operational facts about real distribution centers.
+
+## Power BI dashboard gallery
+
+**All eight screenshots are from the existing historical Power BI report.** Select any image to view it at full resolution; each page is retained as an editable PBIR page in the [Power BI project](powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip).
+
+| Dashboard page | Dashboard page |
+|:---|:---|
+| **01 · INDEX** | **02 · Executive Overview** |
+| [![Report navigation](DASHBORD_SCREEN_SHOTS/1_INDEX.png)](DASHBORD_SCREEN_SHOTS/1_INDEX.png) | [![Leadership overview](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png) |
+| Navigate the eight-page report | View the preserved historical dashboard |
+| **03 · Store Inventory Intelligence** | **04 · DC Inventory Intelligence** |
+| [![Store-level stock](DASHBORD_SCREEN_SHOTS/3_Store%20Inventory%20Intelligence.png)](DASHBORD_SCREEN_SHOTS/3_Store%20Inventory%20Intelligence.png) | [![Distribution center stock](DASHBORD_SCREEN_SHOTS/4_DC%20Inventory%20Intelligence.png)](DASHBORD_SCREEN_SHOTS/4_DC%20Inventory%20Intelligence.png) |
+| Review Store × SKU inventory and demand | Analyze DC × SKU stock and policy comparisons |
+| **05 · Sales & Stockout Performance** | **06 · Supplier Execution Simulation** |
+| [![Demand and service](DASHBORD_SCREEN_SHOTS/5_Sales%20%26%20Stockout%20Performance.png)](DASHBORD_SCREEN_SHOTS/5_Sales%20%26%20Stockout%20Performance.png) | [![Supplier execution](DASHBORD_SCREEN_SHOTS/6_Supplier%20Execution%20Simulation.png)](DASHBORD_SCREEN_SHOTS/6_Supplier%20Execution%20Simulation.png) |
+| Distinguish observed demand from simulated shortage | Review simulated purchasing and receipt cohorts |
+| **07 · Inventory Opportunities** | **08 · Data Quality & Methodology** |
+| [![Exploratory stock signals](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20(Exploratory).png)](DASHBORD_SCREEN_SHOTS/7_Inventory%20Opportunities%20(Exploratory).png) | [![Governance and methods](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png)](DASHBORD_SCREEN_SHOTS/8_Data%20Quality%20%26%20Methodology.png) |
+| Inspect zero-demand and opportunity flags | Review model definitions, boundaries and checks |
+
+**Reporting questions:** Where is inventory concentrated across stores and DCs? What does observed customer demand look like? How does the *historical simulated* service and supplier execution scenario behave? Which zero-demand stocks warrant exploratory review? How are the figures governed and validated?
+
+## Quick start: open the original Power BI report
+
+**Requirements:** Git, Python 3.11+ and a compatible **Power BI Desktop** installation on Windows. The original historical CSV inputs are already included, so **you do not need to rerun the simulation to open the preserved report**.
 
 ```powershell
 git clone https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence.git
 cd enterprise-retail-warehouse-inventory-intelligence
+
+# Verify all nine historical report CSVs (read-only)
+python configure_powerbi.py --check
+
+# Close Power BI Desktop, then set DataRoot for this computer
 python configure_powerbi.py
 ```
 
-Close Power BI Desktop before configuration. The command verifies all nine historical CSV hashes and sets `DataRoot` to this checkout's **`data` folder**, not `build/`. Open `powerbi/Enterprise Retail Inventory Intelligence.pbip`, refresh, and use the existing report. The committed DataRoot is blank because an absolute path must be configured for each computer. Alternatively set that single parameter manually to `<checkout>/data`. See [Power BI setup](docs/powerbi_setup.md).
+Open **[Enterprise Retail Inventory Intelligence.pbip](powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip)** in Power BI Desktop and refresh the nine import tables. The configuration script points `DataRoot` to the cloned repository's historical `data/` folder, not to a generated `build/` directory. It verifies the historical CSV hashes; it **does not** modify the source CSVs or execute a simulation.
 
-RAW is included unchanged from Mendeley Data under **CC BY 4.0**, with publisher hash verification. [Source attribution, license and download links](DATA_SOURCES.md).
+For manual parameter configuration, troubleshooting and the report acceptance checklist, see **[Power BI setup](docs/powerbi_setup.md)**. Static model and import checks passed; actual Desktop refresh, measure evaluation and interactive page behavior remain **POWER_BI_RUNTIME_NOT_VERIFIED**.
 
-![Historical Executive Overview](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)
+## Historical report baseline
 
-## Optional reconstructed pipeline example
+The values below belong to the **preserved historical final V2 scenario** at `2026-04-24`. They are not claimed as results of `NEW_REPLAY_V1`.
 
-Requires Python 3.11 or newer; locally tested on CPython 3.13.15. Python's standard library supplies CSV, Decimal, testing and SQLite. No database server or third-party package is required.
+| Metric | Historical result | Provenance / interpretation |
+|:---|---:|:---|
+| Store × Product snapshot rows | **50,447** | Historical reporting universe |
+| DC × Product snapshot rows | **9,304** | Synthetic DC scenario |
+| Date × Store daily service rows | **12,706** | OBS demand/returns + SIM service |
+| Supplier × DC execution rows | **120** | Simulated supplier cohorts |
+| Store ending on-hand | **68,734 units** | Historical **SIM** stock |
+| DC ending on-hand | **53,030 units** | Historical **SIM** stock |
+| Full-history customer returns | **7,547 units** | **OBS** signed-return inflow |
+| Evaluation-window gross demand | **30,000 units** | **OBS** gross positive demand |
+| Evaluation-window fulfilled | **29,363 units** | Historical **SIM** fulfillment |
+| Evaluation-window shortage | **637 units** | Historical **SIM** unmet demand |
+| 84-day zero-positive-sale stock | **45,021 units** | OBS window classification × historical SIM stock |
+| 84-day zero-positive-sale Store × Product pairs | **31,776** | Historical reporting universe |
 
-The following optional commands execute the separately documented new scenario on fictional sample data. They do not replace the included historical CSVs:
+Evaluation window: **2026-02-02 to 2026-04-24**. This previously reused development window is **not** an independent out-of-sample certification. **Simulated shortage is not an observed stockout or proven lost sale.** Opportunity classifications are exploratory decision-support signals, not approved replenishment instructions.
 
-```powershell
-python -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
-.venv\Scripts\python run_pipeline.py --sample --output-dir build/public
-.venv\Scripts\python run_pipeline.py --sample --output-dir build/repeat
-.venv\Scripts\python validate.py --mode public --build build/public --compare-build build/repeat
-```
+## Analytical architecture
 
-On macOS/Linux use `.venv/bin/python` in place of `.venv\Scripts\python`. Publication CI checks required files and provenance without executing the analytical pipeline. The tests and optional reproducibility commands remain available.
-
-Choose a **new** `build/<run-name>` for every run. Existing runs are rejected, never overwritten. When invoking scripts from another working directory, pass absolute script and output paths; output must still be under that checkout's `build/` directory.
-
-The sample generator authors fictional identifiers, quantities, geography and supplier parameters without reading private data. Its numbers are a separate example baseline, not historical reproduction. The legacy public-mode validation lists the original-reference tests it omits; they are available through `--mode private` using the included historical files.
-
-| Tested sample result | Value |
-|---|---:|
-| Store × Product / DC × Product rows | 6 / 6 |
-| Daily Store rows / Supplier × DC rows | 656 / 4 |
-| Closing Store / DC inventory | 24 / 54 units |
-| Full-history returns | 40 units |
-| Development holdout demand / fulfillment / shortage | 327 / 327 / 0 units |
-| Holdout returns | 10 units |
-| 84-day zero-demand stock / pairs | 8 units / 2 |
-
-Each run produces nine CSVs in `build/<run>/data/`, `analytics.sqlite`, `execution.json`, and conservation, event and purchase-line evidence. Validation writes `validation.json`. A zero validation exit code means the executed analytical checks passed; it does not certify historical equivalence, licensing or Power BI runtime behavior. Historical mismatches exit **2**; implementation/test failures exit **1**.
-
-## Architecture and business questions
+The repository preserves **two separate paths**. They share source contracts and some governed fixtures, but the existing historical presentation must **not** be mistaken for the new replay output.
 
 ```mermaid
-flowchart LR
-  R[RAW sales and inventory] --> B[Existing B1–B3 contracts]
-  G[Governed supplied fixtures] --> D[B4 dimensions]
-  B --> D
-  B --> O[B2 movements and B5 calendar/daily OBS]
-  D --> S[NEW_REPLAY_V1 SIM]
-  O --> S
-  P[Frozen policy and seed] --> S
-  S --> F[Nine generated CSVs]
-  F --> Q[SQLite constraints and KPI views]
-  F --> BI[Existing Power BI model]
-  H[Historical references: tests only] --> V[Validation and exact deviations]
-  F --> V
+flowchart TB
+  RAW["Licensed public RAW retail data"] --> ING["B1: Typed ingestion and validation"]
+  ING --> MOV["B2: Observed sales & returns"]
+  ING --> INV["B3: Inventory / entity contracts"]
+  MOV --> DAY["B5: Date & daily OBS analytics"]
+  INV --> DIM["B4: Governed dimensions"]
+  REF["Supplied synthetic geography, supplier & policy fixtures"] --> DIM
+  REF --> SIM["NEW_REPLAY_V1: Deterministic simulated stock, service & supplier events"]
+  MOV --> SIM
+  DAY --> SIM
+  DIM --> SIM
+  SIM --> GEN["Reconstructed nine CSV tables"]
+  GEN --> SQL["SQLite constraints, SQL views and reconciliation"]
+  GEN --> TEST["Automated repeat-run and historical comparison"]
+  HIST["Preserved historical final V2 datasets"] --> PBIP["Original Power BI PBIP / PBIR / TMDL"]
+  PBIP --> SHOT["8 historical report screenshots"]
+  HIST --> TEST
 ```
 
-Questions include where observed demand occurs, how a specified replenishment scenario would serve it, where simulated inventory has no recent demand, and how simulated supplier orders resolve. Shortage is modeled unmet demand, **not proven real-world lost sales**. Opportunity flags are exploratory, not approved purchasing decisions. The development holdout has been reused and is not independent production validation.
+**Analytical grains:** Date × Store × Product for observed movements; Date × Store for daily demand/service; Store × Product and DC × Product at the reporting snapshot; Supplier × DC for historical execution cohorts. The five shared reporting dimensions define stable entity/date filtering.
 
-## Reconstructed execution on the included source data
+| Evidence type | What it means here |
+|:---|:---|
+| **OBS — Observed** | Retail source rows, typed attributes, positive gross demand and customer return inflow |
+| **SIM — Simulated** | Opening/closing physical stock, stock transfers, purchase orders, fulfillment, shortage, modeled supplier behavior |
+| **EXP — Exploratory** | Zero-demand inventory and opportunity flags; policy not approved for operational automation |
 
-RAW, governed fixtures, configuration and final V2 reference tables are included. Source attribution was verified before publication; see [data rights](docs/release_rights.md). The `--mode private` option retains its historical CLI name and runs the original source/reference tests; it does not imply these published inputs are confidential. These commands generate NEW_REPLAY_V1, not the historical simulation.
+## Run the analytical code
+
+### Option A — fast fictional sample (independent and repeatable)
+
+The demo uses newly generated **fictional source data**; it is not the historical report.
 
 ```powershell
-python run_pipeline.py --input-dir data/raw --reference-dir data/synthetic --policy config/store_replenishment_policy_v2.json --output-dir build/private
-python run_pipeline.py --input-dir data/raw --reference-dir data/synthetic --policy config/store_replenishment_policy_v2.json --output-dir build/private_repeat
-python validate.py --mode private --build build/private --compare-build build/private_repeat --baseline-root .
+python run_pipeline.py --sample --output-dir build/sample_one
+python run_pipeline.py --sample --output-dir build/sample_two
+python validate.py --mode public --build build/sample_one --compare-build build/sample_two
 ```
 
-The final command is expected to return **2**, with complete row/attribute exceptions in `evidence/historical_differences.csv`. It does not silently accept the simulation differences. Historical integrated V1 remains separate from the final V2 scenario exposed in the existing `analytics_v1` presentation files. [Reconciliation and methodology](docs/methodology.md) explain the exact limits.
+Each execution writes nine analytical CSVs, `analytics.sqlite`, machine-readable `execution.json` and reconciliation/event evidence into its **new** `build/<run-name>` directory. Existing run directories are protected against overwriting. SQLite executes **[real analytical SQL](src/sql/analytics.sql)** for constraints, dimensional projections and KPI/data-quality views.
 
-## Power BI and release contents
+### Option B — full included open-data source, new simulation
 
-The original PBIP/PBIR/TMDL model, 51 measures, 112 visuals, eight screenshots, original historical analytics, source RAW and governed configuration are included. One `DataRoot` parameter controls all nine imports. See [Power BI setup](docs/powerbi_setup.md). Local data caches, private dashboard generators, backups and temporary build outputs are excluded.
+```powershell
+python run_pipeline.py --input-dir data/raw --reference-dir data/synthetic --policy config/store_replenishment_policy_v2.json --output-dir build/replay_one
+python run_pipeline.py --input-dir data/raw --reference-dir data/synthetic --policy config/store_replenishment_policy_v2.json --output-dir build/replay_two
+python validate.py --mode private --build build/replay_one --compare-build build/replay_two --baseline-root .
+```
 
-The existing screenshot set remains in `DASHBORD_SCREEN_SHOTS`: Index, Executive Overview, Store Inventory Intelligence, DC Inventory Intelligence, Sales & Stockout Performance, Supplier Execution Simulation, Inventory Opportunities (Exploratory), and Data Quality & Methodology. These depict the historical report, not the new simulation or sample.
+The legacy `--mode private` argument denotes the original-reference comparison, **not private data in this published repository**. It is expected to exit **2** due to transparent **historical SIM differences**; a zero exit is not promised. The full-source replay produces **63,556 Store × Product rows** rather than the historical **50,447**, primarily because inventory-only pairs are retained. Other differences in opening balances, allocations and supplier behavior are documented in the [methodology](docs/methodology.md).
 
-The complete publication is explicitly listed in `release_manifest.json`; `.gitignore` excludes caches, backups and build artifacts. Run `python prepare_release.py --check` for essential file, hash, privacy and model checks only. Publication CI runs these checks without rebuilding analytics. The earlier 29-file synthetic-only candidate is not this release.
+**Start with Option A** for a quick executable tour. **Use the Power BI quick start** to view the completed report with its actual preserved historical results. Do not point the original report at `build/` without deliberately opting into the new scenario.
 
-See the [data dictionary and SQL guide](docs/analytics_dictionary.md), [methodology and reconciliation](docs/methodology.md), and [rights and release boundary](docs/release_rights.md).
+## Validation and reproducibility status
+
+| What was checked | Verified status |
+|:---|:---|
+| Existing B1–B5 observed transformations and five dimensions | **PASS** against the retained references |
+| New scenario: arithmetic, conservation, SQLite constraints, SQL projections and deterministic repeat-run | **PASS** in the recorded local execution |
+| Previously executed project test suite | **55/55 PASS** (local evidence) |
+| Previously executed isolated fresh-clone sample tests | **47/47 PASS** (local evidence) |
+| GitHub Actions | **PASS for publication/file-integrity checks only**, not Power BI runtime or a full pipeline run |
+| Historical V2 simulation ↔ `NEW_REPLAY_V1` exact equivalence | **NOT MET**; differences documented, not hidden |
+| Actual Power BI Desktop open / refresh / rendered interaction testing | **NOT VERIFIED** |
+
+**Overall status: `PARTIAL_REPRODUCIBILITY`.** The source code and new scenario can be executed and checked independently; the included historical presentation is preserved, but reconstructing its original simulation event history is not claimed. In particular, differences in scenario stock balances and simulated service are **not** software validation failures concealed as a success.
+
+For exact historical-vs-replay comparisons, see [Methodology & reconciliation](docs/methodology.md). For definitions, table schemas, relationship grains and executed SQL, see [Analytical dictionary](docs/analytics_dictionary.md). GitHub CI runs the narrow checks in [`ci.yml`](.github/workflows/ci.yml) and **does not** execute Power BI Desktop.
+
+## Repository guide
+
+| Location | Contents |
+|:---|:---|
+| [`data/raw/`](data/raw/) | Two original, hash-verified public Mendeley CSVs |
+| [`data/synthetic/`](data/synthetic/) & [`config/`](config/) | Supplied geography/operating fixtures and governed simulation policies |
+| [`data/analytics_v1/`](data/analytics_v1/) & [`data/powerbi_model_v1/`](data/powerbi_model_v1/) | **Historical final V2 reporting outputs** under retained presentation schema names |
+| [`src/python/`](src/python/) | Canonical ingestion, observed analytics, dimensions, replay, SQL integration and tests |
+| [`src/sql/analytics.sql`](src/sql/analytics.sql) | Executable SQLite schema, constraints and analytical SQL views |
+| [`powerbi/`](powerbi/) | Original PBIP/PBIR/TMDL report, model, measures and relationships |
+| [`DASHBORD_SCREEN_SHOTS/`](DASHBORD_SCREEN_SHOTS/) | All eight authentic historical Power BI screenshots |
+| [`docs/`](docs/) | KPI dictionary, methodology, Power BI setup and publication boundaries |
+| [`release_manifest.json`](release_manifest.json) · [`prepare_release.py`](prepare_release.py) | Explicit publication allowlist, immutable asset hashes and integrity checks |
+
+## Data provenance, attribution and usage boundaries
+
+**Source:** Smith, Jimmy (2026), *Retail Transactions and Stocks Data*, Mendeley Data, Version 1. **DOI: [10.17632/27x8mjm8k4.1](https://doi.org/10.17632/27x8mjm8k4.1)**. The two published RAW files are included unchanged, and their size/SHA-256 identities were checked against publisher metadata before release.
+
+**Source data license:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Credit the source author and identify adaptations when redistributing derived materials. The published source is **not** a record of real supplier SLA performance or the synthetic warehouse network. Full attribution and hashes: [DATA_SOURCES.md](DATA_SOURCES.md); distribution details: [docs/release_rights.md](docs/release_rights.md).
+
+**Code licensing is separate:** the source-data CC BY license does **not** automatically grant a license to this repository's authored software or dashboard assets. No general-purpose software license is asserted in this repository.
+
+---
+
+**Portfolio focus:** reproducible data engineering, governed dimensional modeling, inventory analytics, simulated supply-chain execution, SQL/Python reconciliation and a complete source-controlled Power BI report.
