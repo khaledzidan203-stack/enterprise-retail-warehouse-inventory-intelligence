@@ -2,7 +2,7 @@
 
 ### From open retail data to governed warehouse analytics, inventory simulation and an 8-page Power BI report
 
-[![Publication integrity checks](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml)
+[![Integrity & executable sample](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions/workflows/ci.yml)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQL-SQLite-003B57?logo=sqlite&logoColor=white)
 ![Power BI PBIP](https://img.shields.io/badge/Power_BI-PBIP%20%7C%20PBIR%20%7C%20TMDL-F2C811?logo=powerbi&logoColor=black)
@@ -10,11 +10,15 @@
 
 **A portfolio implementation of multi-store inventory and distribution-center intelligence.** The repository combines licensed public retail sales/inventory data, governed analytical datasets, a preserved Power BI semantic model, Python transformations, an executable SQLite analytical layer and explicit simulation/validation evidence.
 
-**Explore:** [Dashboard gallery](#power-bi-dashboard-gallery) · [Open the report](#quick-start-open-the-original-power-bi-report) · [Architecture](#analytical-architecture) · [Historical analytical baseline](#historical-report-baseline) · [Python & SQL](#run-the-analytical-code) · [Evidence & limitations](#validation-and-reproducibility-status)
+**Start here:** [Case Study](docs/CASE_STUDY.md) · [Dashboard Gallery](#power-bi-dashboard-gallery) · [Eight-page Guide](docs/REPORT_PAGE_GUIDE.md) · [Power BI Quick Start](#quick-start-open-the-original-power-bi-report) · [Technical Walkthrough](docs/TECHNICAL_WALKTHROUGH.md) · [Evidence Map](docs/PROJECT_EVIDENCE_MAP.md) · [Release Validation](docs/FINAL_RELEASE_VALIDATION.md) · [Project Index](docs/PROJECT_INDEX.md)
 
 [![Executive Overview — actual historical Power BI screenshot](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)](DASHBORD_SCREEN_SHOTS/2_Executive%20Overview.png)
 
 > **Two distinct deliverables:** the **original historical V2 Power BI report and its nine datasets** are included and preserved. The reconstructed **`NEW_REPLAY_V1` Python/SQLite simulation** is executable and deterministic, but intentionally **does not reproduce all historical simulated values**. Screenshots show the historical report, not the new replay or fictional sample. Power BI Desktop opening and refresh have **not yet been verified on another machine**.
+
+## Business case and deliverables
+
+The project answers warehouse and retail stock questions across **three deliberately different grains**: Store × Product inventory positions, Date × Store observed demand/modeled service, and cumulative Supplier × Distribution Center simulated procurement. The [Case Study](docs/CASE_STUDY.md) explains the business problem, historical results, assumptions and decision-support boundaries. Technical reviewers can trace each claim in the [Evidence Map](docs/PROJECT_EVIDENCE_MAP.md) and run the [Python/SQLite walkthrough](docs/TECHNICAL_WALKTHROUGH.md).
 
 ## Project at a glance
 
@@ -33,7 +37,7 @@ The geographical assignments, supplier operating parameters, ABC classification 
 
 ## Power BI dashboard gallery
 
-**All eight screenshots are from the existing historical Power BI report.** Select any image to view it at full resolution; each page is retained as an editable PBIR page in the [Power BI project](powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip).
+**All eight screenshots are from the existing historical Power BI report.** Select any image to view it at full resolution; each page is retained as a native PBIR page in the [Power BI project](powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip). See the [Illustrated Eight-page Guide](docs/REPORT_PAGE_GUIDE.md) for its questions, intended grain and interpretation limits.
 
 | Dashboard page | Dashboard page |
 |:---|:---|
@@ -158,13 +162,13 @@ The legacy `--mode private` argument denotes the original-reference comparison, 
 | New scenario: arithmetic, conservation, SQLite constraints, SQL projections and deterministic repeat-run | **PASS** in the recorded local execution |
 | Previously executed project test suite | **55/55 PASS** (local evidence) |
 | Previously executed isolated fresh-clone sample tests | **47/47 PASS** (local evidence) |
-| GitHub Actions | **PASS for publication/file-integrity checks only**, not Power BI runtime or a full pipeline run |
+| GitHub Actions | **Runs publication checks plus two executable fictional-sample pipelines and public validation**; inspect the [live GitHub Actions](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions). Does not certify Power BI Desktop runtime |
 | Historical V2 simulation ↔ `NEW_REPLAY_V1` exact equivalence | **NOT MET**; differences documented, not hidden |
 | Actual Power BI Desktop open / refresh / rendered interaction testing | **NOT VERIFIED** |
 
 **Overall status: `PARTIAL_REPRODUCIBILITY`.** The source code and new scenario can be executed and checked independently; the included historical presentation is preserved, but reconstructing its original simulation event history is not claimed. In particular, differences in scenario stock balances and simulated service are **not** software validation failures concealed as a success.
 
-For exact historical-vs-replay comparisons, see [Methodology & reconciliation](docs/methodology.md). For definitions, table schemas, relationship grains and executed SQL, see [Analytical dictionary](docs/analytics_dictionary.md). GitHub CI runs the narrow checks in [`ci.yml`](.github/workflows/ci.yml) and **does not** execute Power BI Desktop.
+For exact historical-vs-replay comparisons, see [Methodology & reconciliation](docs/methodology.md). For definitions, table schemas, relationship grains and executed SQL, see [Analytical dictionary](docs/analytics_dictionary.md). GitHub CI runs integrity checks **and the reproducible Python/SQLite fictional sample** in [`ci.yml`](.github/workflows/ci.yml), but **does not** execute Power BI Desktop.
 
 ## Repository guide
 
@@ -179,6 +183,17 @@ For exact historical-vs-replay comparisons, see [Methodology & reconciliation](d
 | [`DASHBORD_SCREEN_SHOTS/`](DASHBORD_SCREEN_SHOTS/) | All eight authentic historical Power BI screenshots |
 | [`docs/`](docs/) | KPI dictionary, methodology, Power BI setup and publication boundaries |
 | [`release_manifest.json`](release_manifest.json) · [`prepare_release.py`](prepare_release.py) | Explicit publication allowlist, immutable asset hashes and integrity checks |
+
+## Portfolio documentation and reviewer paths
+
+| Entry point | Why open it |
+|:---|:---|
+| [Case Study](docs/CASE_STUDY.md) | Business problem, historical network outcomes and analytic design choices |
+| [Illustrated Report Page Guide](docs/REPORT_PAGE_GUIDE.md) | All eight authentic screenshots explained page-by-page |
+| [Technical Walkthrough](docs/TECHNICAL_WALKTHROUGH.md) | RAW → Python → simulation → SQLite → Power BI and runnable commands |
+| [Evidence Map](docs/PROJECT_EVIDENCE_MAP.md) | Every major technical claim linked to an actual artifact and its verification boundary |
+| [Final Release Validation](docs/FINAL_RELEASE_VALIDATION.md) | Real test results, current CI scope and unverified Desktop acceptance |
+| [Project Index](docs/PROJECT_INDEX.md) | One-page navigation for employers, BI reviewers and engineers |
 
 ## Data provenance, attribution and usage boundaries
 

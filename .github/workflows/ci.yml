@@ -1,14 +1,39 @@
-name: Complete project publication checks
+name: Repository integrity and reproducible sample
+
 on: [push, pull_request, workflow_dispatch]
+
 permissions:
   contents: read
+
 jobs:
-  publication:
+  publication-integrity:
+    name: Publication and Power BI source checks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-      - run: python prepare_release.py --check
-      - run: python configure_powerbi.py --check
+          python-version: "3.13"
+      - name: Verify release manifest, protected assets and static report contracts
+        run: python -B prepare_release.py --check
+      - name: Verify nine historical Power BI input hashes
+        run: python -B configure_powerbi.py --check
+
+  reproducible-analytics:
+    name: Execute and validate deterministic Python / SQLite sample
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Generate first fictional sample
+        run: python -B run_pipeline.py --sample --output-dir build/ci_sample_a
+      - name: Generate second fictional sample
+        run: python -B run_pipeline.py --sample --output-dir build/ci_sample_b
+      - name: Run public validation and repeat-run reconciliation
+        run: python -B validate.py --mode public --build build/ci_sample_a --compare-build build/ci_sample_b
