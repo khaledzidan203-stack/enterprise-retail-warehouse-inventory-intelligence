@@ -12,7 +12,7 @@
 
 **A completed, source-controlled analytics case study** connecting retail transactions to inventory visibility, distribution-center positions, supplier execution scenarios and decision-support reporting. The public repository includes real licensed source data, the original historical analytical outputs, a native Power BI project, and a separately runnable Python/SQLite simulation.
 
-[**Case Study**](docs/CASE_STUDY.md) · [**8-page Gallery**](#dashboard-gallery) · [**Open Power BI**](#open-the-original-power-bi-report) · [**Technical Walkthrough**](docs/TECHNICAL_WALKTHROUGH.md) · [**Evidence Map**](docs/PROJECT_EVIDENCE_MAP.md) · [**Validation**](docs/FINAL_RELEASE_VALIDATION.md)
+[**Case Study**](docs/CASE_STUDY.md) · [**8-page Gallery**](#power-bi-dashboard-gallery) · [**Open Power BI**](#open-the-original-power-bi-report) · [**Technical Walkthrough**](docs/TECHNICAL_WALKTHROUGH.md) · [**Evidence Map**](docs/PROJECT_EVIDENCE_MAP.md) · [**Validation**](docs/FINAL_RELEASE_VALIDATION.md)
 
 ## At a glance
 
@@ -38,7 +38,7 @@ The report connects several decision-support perspectives **without confusing th
 
 [Read the business case and scope →](docs/CASE_STUDY.md)
 
-## Dashboard gallery
+## Power BI dashboard gallery
 
 All images are **captures of the retained historical Power BI report**, not mock-ups or outputs of the reconstructed simulation. Click to open each screenshot in full resolution. The [illustrated page guide](docs/REPORT_PAGE_GUIDE.md) documents each page's metrics and analytical boundaries.
 

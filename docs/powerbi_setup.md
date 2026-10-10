@@ -1,6 +1,6 @@
 # Open the original Power BI report
 
-The repository contains the original historical **8-page Power BI PBIP** project with report and semantic-model definitions (PBIR/TMDL), **51 DAX measures**, **18 relationships** and **9 included historical CSV inputs**. All eight page screenshots are in [the gallery](../README.md#dashboard-gallery).
+The repository contains the original historical **8-page Power BI PBIP** project with report and semantic-model definitions (PBIR/TMDL), **51 DAX measures**, **18 relationships** and **9 included historical CSV inputs**. All eight page screenshots are in [the gallery](../README.md#power-bi-dashboard-gallery).
 
 ## Requirements
 
