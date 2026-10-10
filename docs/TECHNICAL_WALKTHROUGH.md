@@ -55,7 +55,7 @@ python configure_powerbi.py --check
 python configure_powerbi.py
 ```
 
-Open [Enterprise Retail Inventory Intelligence.pbip](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip) and refresh. `DataRoot` points to the cloned repository's historical `data` directory. **No simulation rerun is necessary.** The Power BI metadata has passed static checks; actual Desktop refresh/visual behavior remains **NOT VERIFIED**.
+Open [Enterprise Retail Inventory Intelligence.pbip](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip) and refresh. `DataRoot` points to the cloned repository's historical `data` directory. **No simulation rerun is necessary.** Power BI metadata passed static checks. The project owner confirmed a **2026-10-10 fresh-clone Windows Desktop open/refresh and eight-page interaction test** (**OWNER-ATTESTED PASS**); see the [runtime acceptance record](FINAL_RELEASE_VALIDATION.md). This does not establish historical replay parity or third-party Desktop reproduction.
 
 ## Run Python / SQLite on reproducible fictional data
 

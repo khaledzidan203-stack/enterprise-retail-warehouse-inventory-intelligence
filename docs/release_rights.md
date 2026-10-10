@@ -14,7 +14,7 @@ This release intentionally omits local Power BI caches, machine-specific setting
 
 ## Reproducibility boundary
 
-The historical final V2 Power BI report and nine reference inputs are preserved. The runnable **NEW_REPLAY_V1** reconstructs a different explicitly modeled simulation: historical inventory/service equivalence has **not** been established. Actual Power BI Desktop refresh and visual interaction are **not yet independently runtime verified**.
+The historical final V2 Power BI report and nine reference inputs are preserved. The runnable **NEW_REPLAY_V1** reconstructs a different explicitly modeled simulation: historical inventory/service equivalence has **not** been established. Power BI Desktop refresh, eight-page navigation and visual interaction were **owner-attested successful on 2026-10-10 using a fresh public clone**; no independent Power BI runtime automation was executed.
 
 `release_manifest.json` is the current list of published paths and protected source asset hashes. The GitHub Actions workflow runs publication/file integrity checks and an executable Python/SQLite fictional-sample validation; it is not a Power BI Desktop runtime.
 

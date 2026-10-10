@@ -69,6 +69,6 @@ Local engineering evidence recorded **55/55 project tests** and **47/47 fresh-cl
 
 ## Reviewer takeaway
 
-This is a portfolio implementation of **source governance, multi-grain analytics, supply-chain simulation, semantic modeling and business reporting**. Its strength is both the complete native Power BI deliverable and the explicit separation of what is observed, simulated and unverified.
+This is a portfolio implementation of **source governance, multi-grain analytics, supply-chain simulation, semantic modeling and business reporting**. Its strength is both the complete native Power BI deliverable and the explicit separation of source observations, simulated processes, owner-tested report behavior and independently validated engineering.
 
 **Continue:** [Power BI gallery](../README.md#power-bi-dashboard-gallery) · [Technical walkthrough](TECHNICAL_WALKTHROUGH.md) · [Evidence map](PROJECT_EVIDENCE_MAP.md).

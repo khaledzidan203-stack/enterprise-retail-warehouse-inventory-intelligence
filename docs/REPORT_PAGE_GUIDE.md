@@ -2,7 +2,7 @@
 
 [Gallery](../README.md#power-bi-dashboard-gallery) · [Native PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip) · [Open the report](powerbi_setup.md)
 
-These are the **eight actual historical report screenshots**, not conceptual wireframes or screenshots of NEW_REPLAY_V1. The page summaries give the intended analytical scope; the current PBIP has not yet passed a fresh-machine Power BI Desktop runtime test.
+These are the **eight actual historical report screenshots**, not conceptual wireframes or screenshots of NEW_REPLAY_V1. The page summaries give the intended analytical scope. On **2026-10-10**, the owner reported successful Power BI Desktop open, refresh and all eight pages/interactions from a fresh public GitHub clone; see the [manual runtime acceptance](FINAL_RELEASE_VALIDATION.md).
 
 ## 1. INDEX
 
@@ -68,4 +68,4 @@ These are the **eight actual historical report screenshots**, not conceptual wir
 
 ---
 
-**To open the native report**, with Power BI Desktop closed run `python configure_powerbi.py` and open the PBIP. This points the original report to the included historical tables. It does not reconstruct the old simulation or prove Desktop refresh has succeeded.
+**To open the native report**, with Power BI Desktop closed run `python configure_powerbi.py` and open the PBIP. This points the original report to the included historical tables and does not reconstruct the old simulation. A **2026-10-10 owner-attested successful Desktop refresh and interaction test** is recorded separately; no independent refresh log or automated runtime test is claimed.

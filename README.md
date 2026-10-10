@@ -130,7 +130,9 @@ The run outputs nine analytical CSVs, `analytics.sqlite`, events and conservatio
 | Isolated local sample testing | **47/47 passed in recorded fresh-clone run** |
 | GitHub Actions release integrity + executable fictional sample | [**See live CI result**](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions) |
 | Exact equivalence of NEW_REPLAY_V1 to historical V2 simulation | **Not achieved**; different initialization/allocation/supplier rules |
-| Actual Power BI Desktop opening, refresh and interactive behavior | **Not independently verified** |
+| Power BI Desktop on a fresh GitHub clone: open, refresh, pages and interactions | **OWNER-ATTESTED PASS · 2026-10-10**; not an automated/third-party runtime test |
+
+**Runtime acceptance evidence (2026-10-10):** the project owner cloned the public repository into a clean local directory on Windows, provided PowerShell output confirming all nine historical inputs passed `configure_powerbi.py --check` and that `DataRoot` configured successfully, and confirmed in Power BI Desktop that the PBIP opened, refreshed, and all eight pages, navigation controls, slicers and report visuals worked as expected. This is **owner-attested manual acceptance**, not a screenshot/log-backed independent runtime certification. See the [dated acceptance record](docs/FINAL_RELEASE_VALIDATION.md).
 
 **Overall status: `PARTIAL_REPRODUCIBILITY`.** The historical Power BI presentation is preserved; the independently runnable replay is a *different* modeled scenario and should not be substituted into the historical dashboard silently. [Detailed reconciliation](docs/methodology.md) · [Evidence map](docs/PROJECT_EVIDENCE_MAP.md) · [Release validation](docs/FINAL_RELEASE_VALIDATION.md).
 

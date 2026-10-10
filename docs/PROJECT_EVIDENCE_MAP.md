@@ -1,6 +1,6 @@
 # Project Evidence Map | Every Major Claim Linked to Source
 
-A portfolio should distinguish **included source artifacts**, **locally executed tests**, **live CI** and **not-yet-performed runtime verification**. This index maps major claims to the exact files.
+A portfolio should distinguish **included source artifacts**, **locally executed tests**, **live CI** and **owner-attested manual Power BI Desktop runtime acceptance**. This index maps major claims to the exact files.
 
 [Case study](CASE_STUDY.md) · [Technical walkthrough](TECHNICAL_WALKTHROUGH.md) · [Validation record](FINAL_RELEASE_VALIDATION.md)
 
@@ -16,10 +16,10 @@ A portfolio should distinguish **included source artifacts**, **locally executed
 | Preserved historical V2 simulation | [data/integrated_v2](../data/integrated_v2/), [analytics inputs](../data/analytics_v1/) | Original final report evidence, not re-created by NEW_REPLAY_V1 |
 | NEW_REPLAY_V1 source | [simulation.py](../src/python/simulation.py), [pipeline.py](../src/python/pipeline.py) | Repeatable alternative simulator; historical numeric parity **not** achieved |
 | SQL / dimensional constraints | [analytics.sql](../src/sql/analytics.sql), [sql_model.py](../src/python/sql_model.py) | Executable SQLite PK/FK/CHECK and KPI/DQ views |
-| 8 native Power BI pages and 112 visuals | [PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip), [report folder](../powerbi/) | Source tree and static inspection, not actual Desktop runtime |
+| 8 native Power BI pages and 112 visuals | [PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip), [report folder](../powerbi/), [runtime record](FINAL_RELEASE_VALIDATION.md) | Static structure confirmed; 2026-10-10 Desktop navigation and visual operation owner-attested PASS |
 | 51 DAX measures / 18 relationships | [SemanticModel TMDL](../powerbi/) | Preserved model definitions, static checks |
 | Eight authentic historical screenshots | [Dashboard folder](../DASHBORD_SCREEN_SHOTS/), [Page Guide](REPORT_PAGE_GUIDE.md) | Real saved historical views, **not** new replay/sample |
-| One configurable CSV root | [configure_powerbi.py](../configure_powerbi.py), [setup](powerbi_setup.md) | Historical nine-CSV hash checking and path update; Desktop refresh unverified |
+| One configurable CSV root | [configure_powerbi.py](../configure_powerbi.py), [setup](powerbi_setup.md), [runtime record](FINAL_RELEASE_VALIDATION.md) | Nine historical source hashes and local configuration passed in shared PowerShell output; Desktop refresh owner-attested PASS |
 | Tests | [test modules](../src/python/), [validate.py](../validate.py) | Previously 55/55 project and 47/47 isolated clone test passes |
 | Live GitHub pipeline | [Workflow](../.github/workflows/ci.yml), [Actions runs](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions) | Integrity + executable fictional sample; inspect live run result |
 | Rights and scope | [release_rights.md](release_rights.md), [DATA_SOURCES.md](../DATA_SOURCES.md) | RAW source attribution documented; do not assume a software LICENSE |
@@ -48,4 +48,4 @@ Full 13-metric reconciliation and reasons: [Methodology](methodology.md). The re
 
 ## Reviewer route
 
-Start with the [eight-page gallery](../README.md#power-bi-dashboard-gallery), inspect the native [PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip), run [Python/SQLite sample](TECHNICAL_WALKTHROUGH.md#run-python--sqlite-on-reproducible-fictional-data), then verify current [GitHub Actions](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions). Passing automation cannot establish unexecuted Power BI Desktop behavior.
+Start with the [eight-page gallery](../README.md#power-bi-dashboard-gallery), inspect the native [PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip), run [Python/SQLite sample](TECHNICAL_WALKTHROUGH.md#run-python--sqlite-on-reproducible-fictional-data), then verify current [GitHub Actions](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions). Automation does not execute Power BI Desktop; the separate **owner-attested manual acceptance** is recorded in [Final Release Validation](FINAL_RELEASE_VALIDATION.md) and is not independent runtime certification.

@@ -13,7 +13,7 @@
 | Synthetic sample determinism | **PASS** | Repeated generated artifacts agreed |
 | Historical V2 ↔ NEW_REPLAY_V1 exact simulation | **NOT MET** | Different opening/launch/allocation and supplier assumptions |
 | Power BI source / import static verification | **PASS** | 8 pages, 112 visuals, 51 measures, 18 relationships, 9 imports |
-| Power BI Desktop open, refresh, DAX behavior | **NOT VERIFIED** | Requires real Windows Power BI Desktop session |
+| Power BI Desktop open, refresh, page navigation, slicers and rendered visuals | **OWNER-ATTESTED PASS · 2026-10-10** | Manual fresh-clone test confirmed by project owner; no independent runtime automation or individual DAX assertion log |
 | Raw-data origin / permission | **ATTRIBUTED** | Original Mendeley files were hash-matched; CC BY 4.0 |
 
 **Project status remains PARTIAL_REPRODUCIBILITY.** The included original historical report is a complete saved Power BI source artifact, and the new model is independently executable; this does *not* imply the original historical SIM engine has been regenerated.
@@ -39,8 +39,20 @@ python validate.py --mode public --build build/check_a --compare-build build/che
 
 Each output directory must be new. For a full RAW-based reconstruction using NEW_REPLAY_V1, see the [walkthrough](TECHNICAL_WALKTHROUGH.md). Historical-baseline comparison exits `2` when known SIM differences are found; that status is intentionally exposed.
 
-## Power BI acceptance still outstanding
+## Power BI Desktop runtime acceptance — 2026-10-10
 
-The next owner-side acceptance test, not completed by this publication, is to clone on a different Windows workstation, run `configure_powerbi.py` with Desktop closed, open the native PBIP, refresh nine historical tables, navigate eight pages, test appropriate date/store/product/DC/supplier interactions and compare the reported figures with historical CSVs. Until evidence of that run exists, keep the state **POWER_BI_RUNTIME_NOT_VERIFIED**.
+**Status: OWNER-ATTESTED PASS.** This is a dated user-reported manual acceptance on Windows Power BI Desktop, **not** a CI-performed or independently witnessed Power BI runtime test.
+
+| Check | Recorded evidence | Outcome |
+|:---|:---|:---|
+| Fresh public clone | `git clone ... D:\\PowerBI_Validation\\warehouse` completed; 440 objects fetched in shared Windows PowerShell output | **PASS** |
+| Source integrity | `python configure_powerbi.py --check` returned `historical_inputs: PASS`, `tables: 9`, `configured: false` | **PASS** |
+| Local parameter setup | `python configure_powerbi.py` returned `historical_inputs: PASS`, `tables: 9`, `configured: true` | **PASS** |
+| Native PBIP launch | Owner confirmed the historical report opened in Power BI Desktop | **OWNER-ATTESTED PASS** |
+| Refresh | Owner confirmed refresh and normal report operation | **OWNER-ATTESTED PASS** |
+| Page navigation | Owner confirmed all eight pages and navigation controls worked | **OWNER-ATTESTED PASS** |
+| Slicers and visuals | Owner confirmed all filters, visuals and displayed results behaved correctly | **OWNER-ATTESTED PASS** |
+
+**Evidence quality:** PowerShell results are available in the project owner's confirmation conversation; Power BI Desktop version, refresh logs, independent DAX assertions, screenshot proof of each visual and a third-party reproduction were **not** supplied as permanent repository artifacts. Do not label this test `INDEPENDENT_RUNTIME_PASS` or infer that historical simulation is reproduced. The original preserved report can now be described as **manually runtime-tested by the owner on a fresh public clone**.
 
 **Publication invariant:** never overwrite original V2 CSVs with NEW_REPLAY_V1 just to force a match; never change the eight genuine screenshots to pretend they are new-simulation outputs. [Source/license notice](../DATA_SOURCES.md).

@@ -4,7 +4,7 @@ A short route to the real analytical and reporting deliverables. [Return to GitH
 
 | You are reviewing... | Open these files |
 |:---|:---|
-| Business insight and scope | [Case Study](CASE_STUDY.md) → [Historical results](../README.md#historical-report-baseline) |
+| Business insight and scope | [Case Study](CASE_STUDY.md) → [Historical results](../README.md#historical-reporting-snapshot) |
 | The Power BI dashboard | [Eight-page image guide](REPORT_PAGE_GUIDE.md) → [Authentic screenshots](../DASHBORD_SCREEN_SHOTS/) → [Native PBIP](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip) |
 | Reproducible engineering | [Technical walkthrough](TECHNICAL_WALKTHROUGH.md) → [Python](../src/python/) → [Executable SQL](../src/sql/analytics.sql) |
 | Semantic model and KPI definitions | [Analytical dictionary](analytics_dictionary.md) → [TMDL model](../powerbi/) → [Power BI setup](powerbi_setup.md) |
@@ -12,4 +12,4 @@ A short route to the real analytical and reporting deliverables. [Return to GitH
 | Testing and reproducibility | [Final release validation](FINAL_RELEASE_VALIDATION.md) → [Live Actions](https://github.com/khaledzidan203-stack/enterprise-retail-warehouse-inventory-intelligence/actions) |
 | Dataset rights | [Mendeley source and checksums](../DATA_SOURCES.md) → [Release rights](release_rights.md) |
 
-**Core distinction:** the original V2 Power BI report and its historical presentation inputs are included. A separately reconstructed simulation, NEW_REPLAY_V1, is reproducible but **not identical** to the historical modeled inventory and fulfillment. Actual Power BI Desktop refresh remains **not independently verified**.
+**Core distinction:** the original V2 Power BI report and its historical presentation inputs are included. A separately reconstructed simulation, NEW_REPLAY_V1, is reproducible but **not identical** to the historical modeled inventory and fulfillment. Power BI Desktop open, refresh and page interactions were **owner-attested successful on 2026-10-10** from a fresh public clone ([validation record](FINAL_RELEASE_VALIDATION.md)); no automated or third-party runtime verification is claimed.

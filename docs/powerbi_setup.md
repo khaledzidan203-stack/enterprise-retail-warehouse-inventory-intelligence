@@ -32,6 +32,6 @@ Do **not** substitute `build/` outputs from NEW_REPLAY_V1 unless you explicitly 
 4. Compare network on-hand, service/shortage and supplier measures with the preserved historical CSVs.
 5. Confirm screenshot correspondence and any page visuals that use date-grain or model-policy assumptions.
 
-**Verification boundary:** published source checks confirm eight pages, 112 visuals, 51 DAX measures, 18 relationships and 9 imports. **POWER_BI_RUNTIME_NOT_VERIFIED** means the publisher has *not* independently confirmed Desktop opening, data refresh, rendered DAX or slicer behavior on a new machine. Source-level validation is not a substitute.
+**Verification boundary:** source checks confirm eight pages, 112 visuals, 51 DAX measures, 18 relationships and nine imports. On **2026-10-10**, the project owner confirmed that a fresh public GitHub clone opened and refreshed in Windows Power BI Desktop and that all eight pages, report navigation, slicers and visuals worked (**OWNER-ATTESTED PASS**). This is manual user-reported runtime acceptance, not independent automation, per-measure DAX testing or historical-simulation parity. [Dated acceptance record](FINAL_RELEASE_VALIDATION.md).
 
 [Report guide](REPORT_PAGE_GUIDE.md) · [Analytical dictionary](analytics_dictionary.md) · [Microsoft Power Query parameter documentation](https://learn.microsoft.com/en-us/power-query/power-query-query-parameters)
