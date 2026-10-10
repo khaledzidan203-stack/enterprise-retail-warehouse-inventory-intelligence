@@ -45,7 +45,7 @@ Each output directory must be new. For a full RAW-based reconstruction using NEW
 
 | Check | Recorded evidence | Outcome |
 |:---|:---|:---|
-| Fresh public clone | `git clone ... D:\\PowerBI_Validation\\warehouse` completed; 440 objects fetched in shared Windows PowerShell output | **PASS** |
+| Fresh public clone | `git clone ... D:\PowerBI_Validation\warehouse` completed; 440 objects fetched in shared Windows PowerShell output | **PASS** |
 | Source integrity | `python configure_powerbi.py --check` returned `historical_inputs: PASS`, `tables: 9`, `configured: false` | **PASS** |
 | Local parameter setup | `python configure_powerbi.py` returned `historical_inputs: PASS`, `tables: 9`, `configured: true` | **PASS** |
 | Native PBIP launch | Owner confirmed the historical report opened in Power BI Desktop | **OWNER-ATTESTED PASS** |
