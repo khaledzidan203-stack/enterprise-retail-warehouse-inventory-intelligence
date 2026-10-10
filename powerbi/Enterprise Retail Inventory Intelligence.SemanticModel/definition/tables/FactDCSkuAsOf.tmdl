@@ -1,0 +1,185 @@
+table FactDCSkuAsOf
+	lineageTag: d0fa68f5-5add-4194-85b6-af8d6fa67e13
+
+	column StateDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 90f99c95-0e25-48a1-8e0e-95e51deabe58
+		summarizeBy: none
+		sourceColumn: StateDate
+
+		variation Variation
+			isDefault
+			relationship: 87fa3fd5-aa41-4838-83b9-0cb7326bd77a
+			defaultHierarchy: LocalDateTable_c51cec63-330e-4760-9b16-45b57ccd3159.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DistributionCenter
+		dataType: string
+		isHidden
+		lineageTag: 13a041a2-1089-4359-8910-fe3adb30514d
+		summarizeBy: none
+		sourceColumn: DistributionCenter
+
+	column 'Product No'
+		dataType: string
+		isHidden
+		lineageTag: 49dec15c-acb8-46a0-958a-5d1d44f540cc
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column ABCClass
+		dataType: string
+		lineageTag: 77310cf9-766b-4f62-8637-c56605bff24d
+		summarizeBy: none
+		sourceColumn: ABCClass
+
+	column Supplier
+		dataType: string
+		isHidden
+		lineageTag: 22cda059-2729-48bf-8992-e26413121d2c
+		summarizeBy: none
+		sourceColumn: Supplier
+
+	column EndOnHandQty
+		dataType: int64
+		lineageTag: 67009b33-2a8b-4ef1-85c8-87a06b42661f
+		summarizeBy: sum
+		sourceColumn: EndOnHandQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndOnOrderQty
+		dataType: int64
+		lineageTag: 85448808-6695-4d0f-a603-47dfa92461e1
+		summarizeBy: sum
+		sourceColumn: EndOnOrderQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndStoreBacklogQty
+		dataType: int64
+		lineageTag: 01b58758-1ae5-4faa-8d4e-b2fbaabaab77
+		summarizeBy: sum
+		sourceColumn: EndStoreBacklogQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetInventoryPosition
+		dataType: int64
+		lineageTag: b966f5e6-0b2b-4a04-b273-a9501e2ec53f
+		summarizeBy: sum
+		sourceColumn: NetInventoryPosition
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReorderPointQty
+		dataType: int64
+		lineageTag: f2faf431-b343-4e88-9bf8-c37a7c3bace0
+		summarizeBy: sum
+		sourceColumn: ReorderPointQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column TargetStockQty
+		dataType: int64
+		lineageTag: ff1ac303-4b7d-4e63-a7c0-c56dab59d3b7
+		summarizeBy: sum
+		sourceColumn: TargetStockQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReorderPointQty_FrozenPolicy
+		dataType: int64
+		lineageTag: a5fdccd3-2cb7-4d53-bed4-d3b8102ff9e8
+		summarizeBy: sum
+		sourceColumn: ReorderPointQty_FrozenPolicy
+
+		annotation SummarizationSetBy = Automatic
+
+	column TargetStockQty_FrozenPolicy
+		dataType: int64
+		lineageTag: 5bc8ada9-80e6-46b3-bd15-67b19b27c843
+		summarizeBy: sum
+		sourceColumn: TargetStockQty_FrozenPolicy
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetPositionRecomputedQty
+		dataType: int64
+		lineageTag: 8beeb467-2cfa-4635-9103-1b911979e331
+		summarizeBy: sum
+		sourceColumn: NetPositionRecomputedQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetPositionMinusFrozenTargetQty
+		dataType: int64
+		lineageTag: 71931779-b453-450d-9c1d-1bf17a75ca65
+		summarizeBy: sum
+		sourceColumn: NetPositionMinusFrozenTargetQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column NetPositionMinusFrozenROPQty
+		dataType: int64
+		lineageTag: 7febd190-62b6-4394-80e1-d59cc3c5afe6
+		summarizeBy: sum
+		sourceColumn: NetPositionMinusFrozenROPQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column AboveFrozenSimulationTargetFlag
+		dataType: int64
+		lineageTag: 3b2dceff-2688-4b22-a93b-9507397f5e35
+		summarizeBy: sum
+		sourceColumn: AboveFrozenSimulationTargetFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column BelowFrozenSimulationROPFlag
+		dataType: int64
+		lineageTag: c5074121-3195-497b-9fb2-cd0c890a2bb5
+		summarizeBy: sum
+		sourceColumn: BelowFrozenSimulationROPFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column AsOfDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 9e274f6e-489a-411e-828f-8b72d1e9d3e7
+		summarizeBy: none
+		sourceColumn: AsOfDate
+
+		variation Variation
+			isDefault
+			relationship: 8caa7ccd-c9d4-4660-b973-ca587afa3f2b
+			defaultHierarchy: LocalDateTable_539c2942-0fba-413f-886f-73cfe5d115be.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Provenance
+		dataType: string
+		lineageTag: ec7da12f-3657-43cc-949e-3f23a90f0348
+		summarizeBy: none
+		sourceColumn: Provenance
+
+	column PolicyStatus
+		dataType: string
+		lineageTag: 102c4126-38b1-420c-9bd8-4de0e9f40083
+		summarizeBy: none
+		sourceColumn: PolicyStatus
+
+	partition FactDCSkuAsOf = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/analytics_v1/analytics_dc_sku_asof_v1.csv"), [Delimiter=",", Columns=21, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"StateDate", type date}, {"DistributionCenter", type text}, {"Product No", type text}, {"ABCClass", type text}, {"Supplier", type text}, {"EndOnHandQty", Int64.Type}, {"EndOnOrderQty", Int64.Type}, {"EndStoreBacklogQty", Int64.Type}, {"NetInventoryPosition", Int64.Type}, {"ReorderPointQty", Int64.Type}, {"TargetStockQty", Int64.Type}, {"ReorderPointQty_FrozenPolicy", Int64.Type}, {"TargetStockQty_FrozenPolicy", Int64.Type}, {"NetPositionRecomputedQty", Int64.Type}, {"NetPositionMinusFrozenTargetQty", Int64.Type}, {"NetPositionMinusFrozenROPQty", Int64.Type}, {"AboveFrozenSimulationTargetFlag", Int64.Type}, {"BelowFrozenSimulationROPFlag", Int64.Type}, {"AsOfDate", type date}, {"Provenance", type text}, {"PolicyStatus", type text}}, "en-US")
+				in
+				    Typed
+

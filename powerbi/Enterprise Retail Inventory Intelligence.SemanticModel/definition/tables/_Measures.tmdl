@@ -1,0 +1,316 @@
+/// Dedicated business-measure host: zero data rows and no relationships.
+/// Store/DC/Supplier flows are simulated and are NOT production certified.
+table _Measures
+	lineageTag: 5f072849-2efa-4a7a-8eb3-1db7eb9781cb
+
+	/// Simulated Store OnHand at 2026-04-24; snapshot, not current ERP inventory.
+	measure 'Store On Hand Units' = SUM(FactStoreSkuAsOf[EndOnHandQty])
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: dcfaf649-03df-4e01-9ff1-44ef5cabdb1d
+
+	/// Simulated DC-to-Store goods in transit at historical AsOf.
+	measure 'Store In Transit Units' = SUM(FactStoreSkuAsOf[EndInTransitQty])
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: d54f7344-2892-413b-9106-1a914ca8571d
+
+	/// Open Store replenishment requests at AsOf; simulated, not physical stock.
+	measure 'Store Open Request Units' = SUM(FactStoreSkuAsOf[EndOpenRequestQty])
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: e30deb2a-f779-4c7d-a520-458d1703c751
+
+	/// Number of Store by Product physical combinations in current snapshot.
+	measure 'Store SKU Pairs' = COUNTROWS(FactStoreSkuAsOf)
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: ace31cca-15af-405b-b0b9-8470809a47d8
+
+	/// Store-SKU pairs with no positive outbound history, including return-only pairs.
+	measure 'Return Only Store SKU Pairs' = CALCULATE(COUNTROWS(FactStoreSkuAsOf), FactStoreSkuAsOf[NeverObservedPositiveDemandFlag] = 1)
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: f380c106-f813-4e8e-a286-225928fe62f5
+
+	/// Full observed history customer returns by Store and SKU; this snapshot measure DOES NOT respond to Date.
+	measure 'Store Full History Returns Units' = SUM(FactStoreSkuAsOf[FullHistoryCustomerReturnQty])
+		formatString: #,##0
+		displayFolder: 01 Store Inventory (Historical AsOf)
+		lineageTag: 2e213c56-955d-40c2-8580-f9bf80f5d497
+
+	/// Simulated distribution-center OnHand as of 2026-04-24.
+	measure 'DC On Hand Units' = SUM(FactDCSkuAsOf[EndOnHandQty])
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 3087ee64-871e-4e5c-8b54-f914130c4318
+
+	/// Open synthetic supplier procurement pipeline at historical AsOf.
+	measure 'DC Supplier On Order Units' = SUM(FactDCSkuAsOf[EndOnOrderQty])
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: eb2f8f11-39a8-4640-a342-9b617e0fbf39
+
+	/// Simulated Store request backlog allocated to DC by Product at AsOf.
+	measure 'DC Store Backlog Units' = SUM(FactDCSkuAsOf[EndStoreBacklogQty])
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 873fce6f-2637-4ad8-aaea-4874c2690030
+
+	/// Sum of OnHand plus OnOrder minus Store backlog, not physical stock.
+	measure 'DC Net Position Units' = SUM(FactDCSkuAsOf[NetInventoryPosition])
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: d3459423-784c-4193-99cc-8ef895c4096f
+
+	/// Diagnostic DC slots above FROZEN simulation target; NOT an approved company overstock signal.
+	measure 'DC Above Frozen Target Slots' = CALCULATE(COUNTROWS(FactDCSkuAsOf), FactDCSkuAsOf[AboveFrozenSimulationTargetFlag] = 1)
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 889bbfd7-29d2-474b-a221-3d1538eb7515
+
+	/// Diagnostic DC slots below FROZEN simulation reorder point; NOT a purchase instruction.
+	measure 'DC Below Frozen ROP Slots' = CALCULATE(COUNTROWS(FactDCSkuAsOf), FactDCSkuAsOf[BelowFrozenSimulationROPFlag] = 1)
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 02c209bf-eda1-4b91-9877-267a74ed138f
+
+	/// Sum of simulated Store plus DC physical OnHand, excluding stock in transit.
+	measure 'Network On Hand Units' = [Store On Hand Units] + [DC On Hand Units]
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 27e01478-be9c-4e80-9a55-23d5b4250119
+
+	/// Simulated Store plus DC OnHand plus Store transit at 2026-04-24.
+	measure 'Network Physical Units' = [Network On Hand Units] + [Store In Transit Units]
+		formatString: #,##0
+		displayFolder: 02 DC Inventory (Historical AsOf)
+		lineageTag: 15fba314-e57f-4db0-868e-0061cdd9dc57
+
+	/// Positive observed outbound units in simulated daily service fact; unavailable with Product/Supplier filters.
+	measure 'Customer Demand Units' = IF(NOT ISCROSSFILTERED(DimProduct) && NOT ISCROSSFILTERED(DimSupplier), SUM(FactStoreDailyService[DemandQty]))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: 668680fd-e664-40a6-965f-b1562e382a8b
+
+	/// Customer demand units fulfilled by Store physical replay; not observed fulfillment.
+	measure 'Customer Fulfilled Units' = IF(NOT ISCROSSFILTERED(DimProduct) && NOT ISCROSSFILTERED(DimSupplier), SUM(FactStoreDailyService[FulfilledQty]))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: d20141b0-772d-4ad4-b319-a9f89d107e0f
+
+	/// Simulated unmet customer demand at Date by Store; not observed real-world stockout.
+	measure 'Customer Shortage Units' = IF(NOT ISCROSSFILTERED(DimProduct) && NOT ISCROSSFILTERED(DimSupplier), SUM(FactStoreDailyService[ShortageQty]))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: d1f1132d-8021-44b9-a5f7-bfd5c22960f9
+
+	/// Ratio of total fulfilled units to total demand units; NEVER average the row-level service rate.
+	measure 'Customer Unit Service Rate' = DIVIDE([Customer Fulfilled Units], [Customer Demand Units])
+		formatString: 0.00%
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: 5be29e9d-fe3b-40e0-a454-656c84bff5bf
+
+	/// Observed customer returns as positive unit inflow, aggregated by Date and Store; Product/Supplier filters not supported.
+	measure 'Observed Customer Return Units' = IF(NOT ISCROSSFILTERED(DimProduct) && NOT ISCROSSFILTERED(DimSupplier), SUM(FactStoreDailyService[ReturnInflowQty]))
+		formatString: #,##0
+		displayFolder: 04 Customer Returns (Date/Store Only)
+		lineageTag: fbda5ebd-e200-48c4-a2f4-ad29188b4a14
+
+	/// Development backtest holdout demand; 2026-02-02 to 2026-04-24; reused development window.
+	measure 'Holdout Demand Units' = CALCULATE([Customer Demand Units], KEEPFILTERS(DimDate[Date] >= DATE(2026, 2, 2)), KEEPFILTERS(DimDate[Date] <= DATE(2026, 4, 24)))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: 33c73393-70dc-49af-8544-e09cd89f5f8c
+
+	/// Development backtest holdout fulfilled demand; NOT an unbiased estimate.
+	measure 'Holdout Fulfilled Units' = CALCULATE([Customer Fulfilled Units], KEEPFILTERS(DimDate[Date] >= DATE(2026, 2, 2)), KEEPFILTERS(DimDate[Date] <= DATE(2026, 4, 24)))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: 09da0ada-537c-4bbd-b4b2-73f627501aac
+
+	/// Development backtest holdout unit shortage; NOT observed real-world loss.
+	measure 'Holdout Shortage Units' = CALCULATE([Customer Shortage Units], KEEPFILTERS(DimDate[Date] >= DATE(2026, 2, 2)), KEEPFILTERS(DimDate[Date] <= DATE(2026, 4, 24)))
+		formatString: #,##0
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: bc91f56c-b4b8-47df-b0e4-a1942e3ba65f
+
+	/// Ratio-of-totals over repeatedly exposed historical Holdout; use for development demonstration only.
+	measure 'Holdout Unit Service Rate' = DIVIDE([Holdout Fulfilled Units], [Holdout Demand Units])
+		formatString: 0.00%
+		displayFolder: 03 Customer Service (Date/Store Only)
+		lineageTag: 859f4ce7-2781-436e-adaf-5e62712d9973
+
+	/// Observed returns within repeated development holdout period, Store only.
+	measure 'Holdout Customer Return Units' = CALCULATE([Observed Customer Return Units], KEEPFILTERS(DimDate[Date] >= DATE(2026, 2, 2)), KEEPFILTERS(DimDate[Date] <= DATE(2026, 4, 24)))
+		formatString: #,##0
+		displayFolder: 04 Customer Returns (Date/Store Only)
+		lineageTag: 61de17da-0594-477e-a0a7-2953b1b6f579
+
+	/// Number of Store-SKU combinations with zero positive outbound units in trailing 28 calendar days. Not approved overstock threshold.
+	measure 'Zero Velocity Store SKU Pairs 28d' = CALCULATE(COUNTROWS(FactStoreSkuAsOf), FactStoreSkuAsOf[ZeroVelocityFlag28] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: 33047a87-3f9d-4230-a23e-11dd0e42c114
+
+	/// Simulated Store OnHand on Store-SKU pairs with zero trailing 28-day positive demand. NOT financially valued.
+	measure 'Zero Velocity On Hand Units 28d' = CALCULATE([Store On Hand Units], FactStoreSkuAsOf[ZeroVelocityFlag28] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: 3e906652-0a58-4648-a62b-f28cbcb42898
+
+	/// Single Store-SKU diagnostic coverage based on 28-day observed gross units. BLANK for zero-demand and aggregate totals; NOT approved coverage policy.
+	measure 'Single SKU Coverage Days 28d' = IF(HASONEVALUE(DimStore[Store]) && HASONEVALUE(DimProduct[Product No]), SELECTEDVALUE(FactStoreSkuAsOf[CoverageDays28]))
+		formatString: #,##0.0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: d8bbedb9-bf09-473a-8650-750d4d52e85b
+
+	/// Number of Store-SKU combinations with zero positive outbound units in trailing 56 calendar days. Not approved overstock threshold.
+	measure 'Zero Velocity Store SKU Pairs 56d' = CALCULATE(COUNTROWS(FactStoreSkuAsOf), FactStoreSkuAsOf[ZeroVelocityFlag56] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: 909fa3b8-963f-485b-879f-10889229fd7e
+
+	/// Simulated Store OnHand on Store-SKU pairs with zero trailing 56-day positive demand. NOT financially valued.
+	measure 'Zero Velocity On Hand Units 56d' = CALCULATE([Store On Hand Units], FactStoreSkuAsOf[ZeroVelocityFlag56] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: b475afbe-0645-4e79-933c-0abe1b99280f
+
+	/// Single Store-SKU diagnostic coverage based on 56-day observed gross units. BLANK for zero-demand and aggregate totals; NOT approved coverage policy.
+	measure 'Single SKU Coverage Days 56d' = IF(HASONEVALUE(DimStore[Store]) && HASONEVALUE(DimProduct[Product No]), SELECTEDVALUE(FactStoreSkuAsOf[CoverageDays56]))
+		formatString: #,##0.0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: dbf42fc6-7c44-42d0-a37d-d0d5c05c71f7
+
+	/// Number of Store-SKU combinations with zero positive outbound units in trailing 84 calendar days. Not approved overstock threshold.
+	measure 'Zero Velocity Store SKU Pairs 84d' = CALCULATE(COUNTROWS(FactStoreSkuAsOf), FactStoreSkuAsOf[ZeroVelocityFlag84] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: f27298eb-8429-4458-b37b-d7e285853f65
+
+	/// Simulated Store OnHand on Store-SKU pairs with zero trailing 84-day positive demand. NOT financially valued.
+	measure 'Zero Velocity On Hand Units 84d' = CALCULATE([Store On Hand Units], FactStoreSkuAsOf[ZeroVelocityFlag84] = 1)
+		formatString: #,##0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: 824565fd-71ed-4b03-89f0-27a67f1212c0
+
+	/// Single Store-SKU diagnostic coverage based on 84-day observed gross units. BLANK for zero-demand and aggregate totals; NOT approved coverage policy.
+	measure 'Single SKU Coverage Days 84d' = IF(HASONEVALUE(DimStore[Store]) && HASONEVALUE(DimProduct[Product No]), SELECTEDVALUE(FactStoreSkuAsOf[CoverageDays84]))
+		formatString: #,##0.0
+		displayFolder: 05 Exploration (NOT Policy Approved)
+		lineageTag: b42456c2-d238-43e2-93d2-0faeeea28fe7
+
+	/// Full-history synthetic Supplier by DC ordered units. NOT an actual ERP purchase KPI.
+	measure 'Supplier Ordered Units' = SUM(FactSupplierDCExecution[OrderedQty])
+		formatString: #,##0
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: e77ad9a5-2090-4e41-a709-fd433ab4a870
+
+	/// Full-history synthetic Supplier by DC receipts. NOT observed GRNs.
+	measure 'Supplier Received Units' = SUM(FactSupplierDCExecution[ReceivedQty])
+		formatString: #,##0
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: 9a424ea5-b9ce-49cf-ac4f-1a864eaf7c50
+
+	/// Simulated supplier residual quantity cancellations through historical AsOf.
+	measure 'Supplier Cancelled Units' = SUM(FactSupplierDCExecution[CancelledQty])
+		formatString: #,##0
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: 602051c5-dd9d-40b2-a2c1-a74e51b8deaa
+
+	/// Simulated Supplier by DC open procurement quantity at AsOf.
+	measure 'Supplier Open Units' = SUM(FactSupplierDCExecution[OpenQty])
+		formatString: #,##0
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: 5707414c-7ca9-4653-80fc-7bf1f83ed754
+
+	/// Cumulative received/ordered ratio; NOT vendor OTIF nor observed supplier fill rate.
+	measure 'Supplier Receipt to Order Ratio' = DIVIDE([Supplier Received Units], [Supplier Ordered Units])
+		formatString: 0.00%
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: 7954725f-634e-426e-9788-fae6dd22df77
+
+	/// Sum of distinct PO counts within Supplier by DC cohorts; simulated.
+	measure 'Supplier PO Headers (Cohort Sum)' = SUM(FactSupplierDCExecution[DistinctPOHeaders])
+		formatString: #,##0
+		displayFolder: 06 Supplier Simulation (Cumulative)
+		lineageTag: 3534905e-db16-409a-a2bd-ac2da16d5237
+
+	/// Required provenance message for report pages.
+	measure 'Development Scope Notice' = "DEVELOPMENT SIMULATION | Historical as-of 2026-04-24 | Holdout repeatedly exposed | NOT LIVE ERP"
+		formatString: General
+		displayFolder: 07 Governance / Disclosure
+		lineageTag: 1b0834f2-ad3b-4c5e-a14e-de330f0f3582
+
+	/// Fixed historical snapshot date; independent of DimDate daily-flow slicers.
+	measure 'Snapshot AsOf Date' = DATE(2026, 4, 24)
+		formatString: yyyy-MM-dd
+		displayFolder: 07 Governance / Disclosure
+		lineageTag: 444ab494-80e3-4f56-accd-767867cad70a
+
+	/// Exploratory share of simulated as-of Store on-hand units on Store-SKU pairs with no observed positive outbound units during the preceding 84 days. Ratio of filtered totals; NOT approved excess or replenishment status.
+	measure 'Store No-Sales Share 84d' = DIVIDE([Zero Velocity On Hand Units 84d], [Store On Hand Units])
+		formatString: 0.0%
+		displayFolder: 05 Exploration (NOT Policy Approved)
+
+	/// Exploratory proportion of DC x Product snapshot slots above frozen SIMULATION target. Ratio of filtered slot counts, NOT overstock units or a corporate policy threshold.
+	measure 'DC Above Frozen Target Share of Slots' = DIVIDE([DC Above Frozen Target Slots], COUNTROWS(FactDCSkuAsOf))
+		formatString: 0.0%
+		displayFolder: 05 Exploration (NOT Policy Approved)
+
+	/// Simulated holdout shortage / observed demand, weighted ratio of totals; NOT actual ERP lost sales.
+	measure 'Holdout Shortage Rate' = DIVIDE([Holdout Shortage Units], [Holdout Demand Units])
+		formatString: 0.00%
+		displayFolder: 03 Customer Service (Date/Store Only)
+
+	/// Store shortage contribution to currently selected store population; preserves Region/Date filters.
+	measure 'Holdout Shortage Share Selected' = DIVIDE([Holdout Shortage Units], CALCULATE([Holdout Shortage Units], ALLSELECTED(DimStore[Store])))
+		formatString: 0.0%
+		displayFolder: 03 Customer Service (Date/Store Only)
+
+	/// Calendar-day trailing average through current date; partial first window starts 2026-02-02.
+	measure 'Holdout Shortage 7d Daily Average' = VAR _d = MAX(DimDate[Date]) VAR _s = MAX(DATE(2026, 2, 2), _d - 6) RETURN IF(NOT ISBLANK(_d) && _d >= DATE(2026, 2, 2) && _d <= DATE(2026, 4, 24), DIVIDE(CALCULATE([Holdout Shortage Units], DATESBETWEEN(DimDate[Date], _s, _d)), DATEDIFF(_s, _d, DAY) + 1))
+		formatString: #,##0.0
+		displayFolder: 03 Customer Service (Date/Store Only)
+
+	/// DQ functional validation; source-qualified and exploratory, not production certification.
+	measure 'DQ Service Rows' = COUNTROWS(FactStoreDailyService)
+		formatString: #,##0
+		displayFolder: 08 Data Quality and Methodology
+
+	/// DQ functional validation; source-qualified and exploratory, not production certification.
+	measure 'DQ DC SKU Rows' = COUNTROWS(FactDCSkuAsOf)
+		formatString: #,##0
+		displayFolder: 08 Data Quality and Methodology
+
+	/// DQ functional validation; source-qualified and exploratory, not production certification.
+	measure 'DQ Service Reconciliation Rows' = SUMX(FactStoreDailyService, IF(FactStoreDailyService[DemandQty] <> FactStoreDailyService[FulfilledQty] + FactStoreDailyService[ShortageQty], 1, 0))
+		formatString: #,##0
+		displayFolder: 08 Data Quality and Methodology
+
+	/// DQ functional validation; source-qualified and exploratory, not production certification.
+	measure 'DQ Duplicate Grain Rows' = VAR a = COUNTROWS(FactStoreSkuAsOf) - COUNTROWS(SUMMARIZE(FactStoreSkuAsOf, FactStoreSkuAsOf[Store], FactStoreSkuAsOf[Product No])) VAR b = COUNTROWS(FactDCSkuAsOf) - COUNTROWS(SUMMARIZE(FactDCSkuAsOf, FactDCSkuAsOf[DistributionCenter], FactDCSkuAsOf[Product No])) VAR c = COUNTROWS(FactStoreDailyService) - COUNTROWS(SUMMARIZE(FactStoreDailyService, FactStoreDailyService[Date], FactStoreDailyService[Store])) VAR d = COUNTROWS(FactSupplierDCExecution) - COUNTROWS(SUMMARIZE(FactSupplierDCExecution, FactSupplierDCExecution[Supplier], FactSupplierDCExecution[DistributionCenter])) RETURN a + b + c + d
+		formatString: #,##0
+		displayFolder: 08 Data Quality and Methodology
+
+	/// DQ functional validation; source-qualified and exploratory, not production certification.
+	measure 'DQ Orphan Reference Keys' = CALCULATE(COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactStoreDailyService'[Store]), DISTINCT('DimStore'[Store]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactStoreDailyService'[Date]), DISTINCT('DimDate'[Date]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactStoreSkuAsOf'[Store]), DISTINCT('DimStore'[Store]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactStoreSkuAsOf'[Product No]), DISTINCT('DimProduct'[Product No]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactStoreSkuAsOf'[DistributionCenter]), DISTINCT('DimDistributionCenter'[DistributionCenter]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactDCSkuAsOf'[DistributionCenter]), DISTINCT('DimDistributionCenter'[DistributionCenter]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactDCSkuAsOf'[Product No]), DISTINCT('DimProduct'[Product No]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactDCSkuAsOf'[Supplier]), DISTINCT('DimSupplier'[Supplier]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactSupplierDCExecution'[Supplier]), DISTINCT('DimSupplier'[Supplier]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('FactSupplierDCExecution'[DistributionCenter]), DISTINCT('DimDistributionCenter'[DistributionCenter]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('DimStore'[DistributionCenter]), DISTINCT('DimDistributionCenter'[DistributionCenter]))), 0) + COALESCE(COUNTROWS(EXCEPT(DISTINCT('DimProduct'[Supplier]), DISTINCT('DimSupplier'[Supplier]))), 0), REMOVEFILTERS())
+		formatString: #,##0
+		displayFolder: 08 Data Quality and Methodology
+
+	column Placeholder
+		dataType: string
+		isHidden
+		lineageTag: 131a90e8-af63-4db7-9839-c1d016a14293
+		summarizeBy: none
+		sourceColumn: Placeholder
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Placeholder = text], {})
+				in
+				    Source
+

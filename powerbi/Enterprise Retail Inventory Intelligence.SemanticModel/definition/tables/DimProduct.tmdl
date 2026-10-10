@@ -1,0 +1,62 @@
+table DimProduct
+	lineageTag: 53b2e5c4-73a4-4c9c-b8a5-804e70ca5964
+
+	column 'Product No'
+		dataType: string
+		lineageTag: b2ab62c1-0791-431a-ab9b-3e7619f4a9da
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column Supplier
+		dataType: string
+		lineageTag: 0d77f901-51ee-4f63-b06d-ee13e2011fcf
+		summarizeBy: none
+		sourceColumn: Supplier
+
+	column 'Product Description'
+		dataType: string
+		lineageTag: 19ac7d89-dfe5-48aa-bc7d-e33c3f188d40
+		summarizeBy: none
+		sourceColumn: Product Description
+
+	column 'Product Division'
+		dataType: string
+		lineageTag: 507bd155-ba7e-4728-a509-826f02b57ff0
+		summarizeBy: none
+		sourceColumn: Product Division
+
+	column 'Product Category'
+		dataType: string
+		lineageTag: 0dde1929-9283-4eae-8a88-0befe3eb7dba
+		summarizeBy: none
+		sourceColumn: Product Category
+
+	column 'Product Subcategory'
+		dataType: string
+		lineageTag: d3875e09-ba5f-4275-b080-b7c40eb5274c
+		summarizeBy: none
+		sourceColumn: Product Subcategory
+
+	column 'Product Segment'
+		dataType: string
+		lineageTag: 9002e130-459d-4624-82fd-f995effe4295
+		summarizeBy: none
+		sourceColumn: Product Segment
+
+	column ABCClass
+		dataType: string
+		lineageTag: 1db9709d-09d4-4d8c-a6a9-0a0e9c130f23
+		summarizeBy: none
+		sourceColumn: ABCClass
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/powerbi_model_v1/DimProduct.csv"), [Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Product No", type text}, {"Supplier", type text}, {"Product Description", type text}, {"Product Division", type text}, {"Product Category", type text}, {"Product Subcategory", type text}, {"Product Segment", type text}, {"ABCClass", type text}}, "en-US")
+				in
+				    Typed
+

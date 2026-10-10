@@ -1,0 +1,50 @@
+table DimStore
+	lineageTag: 4adf7094-d234-435e-830d-fd2495aacb42
+
+	column Store
+		dataType: string
+		lineageTag: ba4fd2de-9b6c-4910-9de4-4449d589e50a
+		summarizeBy: none
+		sourceColumn: Store
+
+	column RegionCode
+		dataType: string
+		lineageTag: 359eb110-7230-4c2e-8435-bb0dccce76fe
+		summarizeBy: none
+		sourceColumn: RegionCode
+
+	column RegionName
+		dataType: string
+		lineageTag: 86fa3d90-438d-4cbe-b958-9613d6a9fa7b
+		summarizeBy: none
+		sourceColumn: RegionName
+
+	column SyntheticCityCode
+		dataType: string
+		lineageTag: c460182e-e91f-47a0-be99-d93c79d4c1b2
+		summarizeBy: none
+		sourceColumn: SyntheticCityCode
+
+	column DistributionCenter
+		dataType: string
+		lineageTag: 5d5f493f-cdff-4eb3-94cf-3d7c6f29f3cf
+		summarizeBy: none
+		sourceColumn: DistributionCenter
+
+	column IsSynthetic
+		dataType: int64
+		lineageTag: 68920f8c-69c4-4201-b08e-f39df52c8f6e
+		summarizeBy: none
+		sourceColumn: IsSynthetic
+
+	partition DimStore = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/powerbi_model_v1/DimStore.csv"), [Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Store", type text}, {"RegionCode", type text}, {"RegionName", type text}, {"SyntheticCityCode", type text}, {"DistributionCenter", type text}, {"IsSynthetic", Int64.Type}}, "en-US")
+				in
+				    Typed
+

@@ -1,0 +1,39 @@
+{
+  "checkpoint": "CP5A",
+  "status": "MODEL_ASSETS_PREPARED_NOT_IMPORTED",
+  "created_at": "2026-10-09T00:03:57",
+  "source_analytics_manifest_sha256": "22d74003d823c581148a2d305608500c16dcbef7fe58a8a7120b4c6c8cb3474f",
+  "source_integrated_v2_manifest_sha256": "b1a27573cc2d8a128ab60be412ee97c60189edc3f6f757a815c467f3b0f29cd8",
+  "existing_pbip_name": "Enterprise Retail Inventory Intelligence.pbip",
+  "artifacts": [
+    {
+      "file_name": "DimDate.csv",
+      "row_count": 328,
+      "sha256": "df00a1cd7e7642d3d7c281d9a47ab77f2244cd08390a61e284521f1acc0113d4"
+    },
+    {
+      "file_name": "DimStore.csv",
+      "row_count": 40,
+      "sha256": "4eedf9e8d68744c1f82cd1762f7f3cc756de72b0fabf6ef85e8102b2f99c2017"
+    },
+    {
+      "file_name": "DimProduct.csv",
+      "row_count": 2326,
+      "sha256": "d01fc8d918052fa4ccc72f28d7927997f086633220584b10c14cc9d5bd9e87d9"
+    },
+    {
+      "file_name": "DimDistributionCenter.csv",
+      "row_count": 4,
+      "sha256": "8e0b4e3545318014505b07e31721c0d3935b7a89fb602cb469dc6dfe30d67809"
+    },
+    {
+      "file_name": "DimSupplier.csv",
+      "row_count": 30,
+      "sha256": "7b223dc1782260969c466c9dcd94883a93f4c2b071637a9062f89372dbd0af44"
+    },
+    {
+      "file_name": "powerbi_model_contract_v1.json",
+      "sha256": "53a6e528d1654cd2e38377567f99c573f3019a8632dc8508c67ef6f3689c7d82"
+    }
+  ]
+}

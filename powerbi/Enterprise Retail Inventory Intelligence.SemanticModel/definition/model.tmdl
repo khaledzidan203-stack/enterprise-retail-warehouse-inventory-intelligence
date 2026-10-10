@@ -1,0 +1,39 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["DimDate","DimStore","DimProduct","DimDistributionCenter","DimSupplier","FactStoreSkuAsOf","FactDCSkuAsOf","FactStoreDailyService","FactSupplierDCExecution","_Measures"]
+
+ref table DimDate
+ref table DimStore
+ref table DimProduct
+ref table DimDistributionCenter
+ref table DimSupplier
+ref table FactStoreSkuAsOf
+ref table FactDCSkuAsOf
+ref table FactStoreDailyService
+ref table FactSupplierDCExecution
+ref table _Measures
+ref table DateTableTemplate_0af7683c-9849-4b9d-92ec-6aa0bb5fb558
+ref table LocalDateTable_b6945c99-bd22-46e1-ab38-f59772ff98b9
+ref table LocalDateTable_14c1358d-852b-4c23-b1d2-47aab8ed9c1e
+ref table LocalDateTable_59ac0169-52a5-4753-ba3f-92e3562db3da
+ref table LocalDateTable_60bb0cf4-577c-4a8f-9daa-4c1b732c7f96
+ref table LocalDateTable_ce3aa691-1684-49cc-812d-becf1b772436
+ref table LocalDateTable_ee7ca4bb-539e-406c-918f-e9932f4344da
+ref table LocalDateTable_c51cec63-330e-4760-9b16-45b57ccd3159
+ref table LocalDateTable_539c2942-0fba-413f-886f-73cfe5d115be
+
+ref cultureInfo en-US
+
+
+ref expression DataRoot

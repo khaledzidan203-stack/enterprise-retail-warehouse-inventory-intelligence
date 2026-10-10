@@ -1,0 +1,86 @@
+{
+  "version": "DASHBOARD_PRESENTATION_V2",
+  "status": "DESKTOP_REVIEW_PENDING",
+  "supersedes": "CP6A V1 styling only; analytical bindings remain frozen",
+  "effective_after": "CP6B-R1 runtime visual approval",
+  "canvas": {
+    "width": 1600,
+    "height": 900
+  },
+  "page_order": [
+    {
+      "page_slug": "p_index",
+      "title": "INDEX",
+      "page_id": "9f0bc188040cea8e9d4d"
+    },
+    {
+      "page_slug": "p_executive",
+      "title": "Executive Overview",
+      "page_id": "3f0c385e4017cd30f78d",
+      "accent": "#173B63"
+    },
+    {
+      "page_slug": "p_store_inventory",
+      "title": "Store Inventory Intelligence",
+      "page_id": "5e6478817ce1282eba38",
+      "accent": "#23618C"
+    },
+    {
+      "page_slug": "p_dc_inventory",
+      "title": "DC Inventory Intelligence",
+      "page_id": "a548a42563bd23364a86",
+      "accent": "#327FAB"
+    },
+    {
+      "page_slug": "p_service",
+      "title": "Sales & Stockout Performance",
+      "page_id": "dd1e58948202ae2638f0",
+      "accent": "#258C97"
+    },
+    {
+      "page_slug": "p_supplier",
+      "title": "Supplier Execution Simulation",
+      "page_id": "94e13585fcdf4651ad85",
+      "accent": "#338574"
+    },
+    {
+      "page_slug": "p_opportunities",
+      "title": "Inventory Opportunities (Exploratory)",
+      "page_id": "1c0a176374fe02a2417b",
+      "accent": "#A17A42"
+    },
+    {
+      "page_slug": "p_methodology",
+      "title": "Data Quality & Methodology",
+      "page_id": "a4ba216222c8e0d8770b",
+      "accent": "#76639C"
+    }
+  ],
+  "styles": {
+    "page_titles": "centered",
+    "index_tiles": "7 graduated semantic tones, page label below tile",
+    "page_footer": "match INDEX tile hue",
+    "card_titles": "centered; KPI name and value only",
+    "chart_titles": "centered",
+    "visual_header_transparency": 100,
+    "chart_gradients": "magnitude-based; use native validated FillRule donor at chart build",
+    "severity": "no invented severity bands",
+    "storytelling": "current position > pattern > exceptions/drivers > drilldown/context",
+    "governance": "observed sales/returns vs simulated store/DC/supplier, historical only"
+  },
+  "page_build_method": "one page at a time; PBIR donor > source edits > structural & Desktop check > screenshot approval",
+  "chart_color_rule": "Magnitude gradient per metric, not categorical severity without policy; no invented thresholds",
+  "per_page_storyline": [
+    "headline signal",
+    "change or distribution",
+    "drivers and exceptions",
+    "detail and limitations"
+  ],
+  "source_lineage": [
+    "AKS-05",
+    "AKS-04",
+    "AKS-02",
+    "approved CP5C 41 DAX measures"
+  ],
+  "provenance": "Observed raw sales/returns; simulated inventory / supplier execution; source-end as-of; not live"
+}

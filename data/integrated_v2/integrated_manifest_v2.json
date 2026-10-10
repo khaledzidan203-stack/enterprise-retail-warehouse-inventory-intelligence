@@ -1,0 +1,124 @@
+{
+  "artifact_set": "INTEGRATED_OPERATIONAL_FACTS_V2",
+  "status": "DEVELOPMENT_VALIDATED",
+  "parent_artifact_set": "INTEGRATED_OPERATIONAL_FACTS_V1",
+  "parent_manifest_sha256": "8dd54632052d2ad623d6a255fa762bd5c33154903712137334b353e2f8b8bba3",
+  "materialization_checkpoint": "CP3G4L",
+  "replay_validation_checkpoint": "CP3G4K",
+  "customer_return_inflow_chronology": "STORE_BEFORE_SAME_DAY_OUTBOUND_DEMAND",
+  "customer_return_dc_injection": false,
+  "physical_store_product_universe": 50447,
+  "return_only_store_product_pairs": 211,
+  "generated_at": "2026-10-08T23:24:16",
+  "replay_mode": "DEVELOPMENT_BACKTEST",
+  "source_period": {
+    "start": "2025-06-01",
+    "end": "2026-04-24",
+    "training_end": "2026-02-01",
+    "v2_evaluation_start": "2026-02-02"
+  },
+  "governance": {
+    "store_policy_id": "STORE_REPLENISHMENT_POLICY_V2",
+    "store_policy_sha256": "75327da3362e3a4bc3c23b9d1827532904b54b24e3674eb82dcb774faa9a3b10",
+    "dc_policy_file": "dc_inventory_policy_v2.csv",
+    "dc_policy_sha256": "c3efd5ac426fec885b5c8da0cf736801b9e834345c9776d87f6cebbb0ea73dce",
+    "supplier_execution_version": "SUPPLIER_DC_EXECUTION_V1",
+    "deterministic_seed": 20261007,
+    "inter_dc": false,
+    "commercial_event_staging": false,
+    "production_certified": false,
+    "holdout_repeatedly_exposed": true
+  },
+  "accepted_development_totals": {
+    "customer_return_inflow_qty_full_period": 7547.0,
+    "customer_return_inflow_qty_holdout": 1738.0,
+    "customer_return_inflow_qty_model_universe": 7333.0,
+    "customer_return_inflow_qty_return_only": 214.0,
+    "return_only_store_ending_qty": 231.0,
+    "holdout_demand_qty": 30000.0,
+    "holdout_fulfilled_qty": 29363.0,
+    "holdout_shortage_qty": 637.0,
+    "holdout_customer_service": 0.9787666666666667,
+    "holdout_new_request_qty": 35749.0,
+    "holdout_dc_to_store_shipped_qty": 35970.0,
+    "source_end_store_on_hand_qty": 68734.0,
+    "source_end_dc_on_hand_qty": 53030.0,
+    "source_end_store_in_transit_qty": 187.0,
+    "source_end_store_open_request_qty": 58.0,
+    "source_end_supplier_on_order_qty": 1274.0,
+    "source_end_physical_network_inventory_qty": 121951.0,
+    "supplier_ordered_qty_full_period": 169408.0,
+    "supplier_received_qty_full_period": 167992.0,
+    "supplier_cancelled_qty_full_period": 142.0
+  },
+  "artifacts": [
+    {
+      "file_name": "fact_store_demand_service_v2.csv",
+      "row_count": 118256,
+      "sha256": "de1454df4cda3f2fc2c32c89a960d1a828339877f17d431129d07eedb94749af"
+    },
+    {
+      "file_name": "fact_store_customer_return_inflow_v2.csv",
+      "row_count": 7491,
+      "sha256": "44c9105b9115c51b6d7d7a5b48c3dafd1df5f7ed2a24dfdf5d6db488fec791fe"
+    },
+    {
+      "file_name": "fact_store_replenishment_request_v2.csv",
+      "row_count": 121082,
+      "sha256": "842a3262197069b380bbc12d69d6c09988f3ac184aec466ed342813cf8388a4e"
+    },
+    {
+      "file_name": "fact_dc_to_store_shipment_v2.csv",
+      "row_count": 126749,
+      "sha256": "be2de9dfaf3a6742fb5c4e228309947da3b89712e77cedb78910f5966db8e0af"
+    },
+    {
+      "file_name": "fact_purchase_order_header_v2.csv",
+      "row_count": 5296,
+      "sha256": "2ae458ae6fdcfb34d8e64072e610ee992598438ad72f0a68b799b4fab3c01a36"
+    },
+    {
+      "file_name": "fact_purchase_order_line_v2.csv",
+      "row_count": 28210,
+      "sha256": "7e847774ab97615c25b1c11feef318ee005056ef586547637b5ec1543563771e"
+    },
+    {
+      "file_name": "fact_supplier_execution_event_v2.csv",
+      "row_count": 29040,
+      "sha256": "451d5a564e99163301357d01d212b88f4ac93118537161ddb9c49469d89131e2"
+    },
+    {
+      "file_name": "fact_goods_receipt_line_v2.csv",
+      "row_count": 28653,
+      "sha256": "c4f38642d55fa8f768f7cfa6dbe25cef8ef4cc8905303ba0873d9b5ada051e3f"
+    },
+    {
+      "file_name": "fact_store_inventory_state_change_v2.csv",
+      "row_count": 327682,
+      "sha256": "8a81c90e248d5bdda6f32798d90326c54e363202fbc74b0da70873bef7e97666"
+    },
+    {
+      "file_name": "fact_dc_inventory_state_change_v2.csv",
+      "row_count": 158316,
+      "sha256": "fa922b345aa930ef6422305399b90c0af9211b9c7289560b3726b31a82b27985"
+    },
+    {
+      "file_name": "control_network_snapshot_v2.csv",
+      "row_count": 2,
+      "sha256": "75bab8a95c8a5daf0ea3cca6fee5bd8e8cf53db20aed34540a412162d09e2697"
+    }
+  ],
+  "grains": {
+    "fact_store_demand_service_v2.csv": "Date × Store × Product No for positive outbound customer demand",
+    "fact_store_customer_return_inflow_v2.csv": "Date × Store × Product No for positive customer return inflow",
+    "fact_store_replenishment_request_v2.csv": "one new replenishment request increment per RequestDate × Store × Product No",
+    "fact_dc_to_store_shipment_v2.csv": "one physical DC-to-Store shipment line",
+    "fact_purchase_order_header_v2.csv": "one Supplier × DistributionCenter × PODate purchasing document / PONumber",
+    "fact_purchase_order_line_v2.csv": "one PONumber × Product No",
+    "fact_supplier_execution_event_v2.csv": "one supplier execution attempt/cancellation event",
+    "fact_goods_receipt_line_v2.csv": "one positive physical receipt event / ReceiptNumber",
+    "fact_store_inventory_state_change_v2.csv": "end-of-day Store × Product physical state only when state changes; first day seeds all 50,447 physical pairs including 211 return-only pairs",
+    "fact_dc_inventory_state_change_v2.csv": "end-of-day DC × Product physical/procurement state only when state changes; first day seeds every slot",
+    "control_network_snapshot_v2.csv": "named network control snapshot"
+  }
+}

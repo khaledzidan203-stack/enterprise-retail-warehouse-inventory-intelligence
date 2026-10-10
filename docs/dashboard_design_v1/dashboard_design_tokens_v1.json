@@ -1,0 +1,49 @@
+{
+  "contract_status": "PROPOSED_AWAIT_DESKTOP_DESIGN_APPROVAL",
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "aspect": "16:9",
+    "page_background_native": true
+  },
+  "colors": {
+    "canvas": "#F4F7FB",
+    "card": "#FFFFFF",
+    "panel": "#EEF3F9",
+    "border": "#D9E2EC",
+    "text": "#22324A",
+    "muted": "#6B7A90",
+    "navy": "#173B63",
+    "indigo": "#506CF0",
+    "teal": "#1E9E96",
+    "amber": "#C98A2E",
+    "red": "#C65D5D"
+  },
+  "typography": {
+    "family": "Segoe UI",
+    "title_pt": 26,
+    "body_pt": 11,
+    "kpi_pt": 26,
+    "caption_pt": 9
+  },
+  "components": {
+    "radius_px": 8,
+    "border_px": 1,
+    "outer_margin_px": 60,
+    "gap_px": 24
+  },
+  "home": {
+    "enabled_all_analytical_pages": true,
+    "destination_page": "p_index",
+    "button_label": "Home"
+  },
+  "labeling": {
+    "all_snapshot_metrics_show_asof": "2026-04-24",
+    "no_live_erp_claim": true,
+    "holdout_repeatedly_exposed": true,
+    "oracular_launch_proxy": true,
+    "zero_velocity_not_overstock": true,
+    "no_auto_commercial_actions": true
+  },
+  "reference": "AKS-05 Design Tokens / native page canvas / INDEX/Home donor-driven PBIR build"
+}

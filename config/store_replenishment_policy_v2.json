@@ -1,0 +1,142 @@
+{
+  "policy_id": "STORE_REPLENISHMENT_POLICY_V2",
+  "policy_status": "FROZEN_FOR_FINAL_INTEGRATION_REPLAY",
+  "created_at": "2026-10-08T21:59:01",
+  "governance": {
+    "design_type": "NEW_GOVERNED_CLEAN_POLICY",
+    "legacy_reference_policy": "FULL_TARGETED_HYGIENIC_DEV_V1",
+    "legacy_relationship": "Legacy development results remain benchmark evidence only. This V1 policy intentionally replaces implementation reverse-engineering.",
+    "upstream_baseline": "SUPPLIER_DC_EXECUTION_V1",
+    "inter_dc": false,
+    "commercial_event_staging": false,
+    "future_demand_quantity_usage": false,
+    "activation_proxy": "EXOGENOUS_PLANNED_ASSORTMENT_PROXY derived from first observed activity for development backtesting only"
+  },
+  "review": {
+    "review_mode": "CONTINUOUS_DAILY",
+    "recalibration_days": 7,
+    "demand_lookback_days": 84,
+    "dc_to_store_lead_time_days": 1
+  },
+  "mature_replenishment": {
+    "method": "EMPIRICAL_ROLLING_DEMAND_QUANTILES",
+    "abc_service_quantiles": {
+      "A": 0.99,
+      "B": 0.98,
+      "C": 0.95
+    },
+    "reorder_point": {
+      "demand_window_days": 2,
+      "formula": "ceil(empirical ABC quantile of rolling 2-day demand over trailing 84 days)",
+      "minimum_units": 1
+    },
+    "target_stock": {
+      "demand_window_days": 4,
+      "formula": "ceil(empirical ABC quantile of rolling 4-day demand over trailing 84 days)",
+      "minimum_units": 1,
+      "constraint": "TargetStockQty >= ReorderPointQty"
+    },
+    "request_formula": "max(0, TargetStockQty - (OnHandQty + InTransitQty)) when InventoryPosition <= ReorderPointQty"
+  },
+  "dormancy": {
+    "days_without_positive_demand": 168,
+    "decision": "REVIEW",
+    "automatic_discontinue": false,
+    "service_buffer_units": 1,
+    "reactivation": "Re-enter rolling mature policy after positive demand becomes historically available"
+  },
+  "new_assortment": {
+    "launch_calibration_window_days": 7,
+    "calibration_burn_in_days": 28,
+    "known_product_new_store_quantile": 0.95,
+    "new_to_network_quantile": 0.99,
+    "hierarchy": [
+      "PRODUCT_HISTORY_OTHER_STORES",
+      "PRODUCT_SUBCATEGORY_X_ABC",
+      "ABC_CLASS"
+    ],
+    "minimum_product_launch_events": 3,
+    "minimum_subcategory_abc_launch_events": 20,
+    "minimum_initial_allocation_units": 1,
+    "launch_quantity_future_leakage": false,
+    "prestage": {
+      "mode": "LEAD_TIME_AWARE",
+      "applies_to": "NEW_ASSORTMENT_ACTIVATION",
+      "formula": "BaseLeadTimeDays + ReviewCycleDays + DCToStoreLeadTimeDays",
+      "dc_to_store_lead_time_days": 1,
+      "supplier_lead_time_source": "dc_inventory_policy_v2.BaseLeadTimeDays",
+      "dc_review_cycle_source": "dc_inventory_policy_v2.ReviewCycleDays",
+      "request_timing": "PlannedActivationDate - PrestageDays",
+      "minimum_observed_development_prestage_days": 7,
+      "median_observed_development_prestage_days": 10.0,
+      "p95_observed_development_prestage_days": 20.0,
+      "maximum_observed_development_prestage_days": 36,
+      "future_demand_quantity_usage": false,
+      "activation_timing_boundary": "Development backtest uses the existing exogenous planned-assortment activation proxy. Quantity calibration remains training-only."
+    }
+  },
+  "physical_flow": {
+    "store_inventory_cannot_be_negative": true,
+    "dc_inventory_cannot_be_negative": true,
+    "dc_ships_at_most_available_inventory": true,
+    "partial_dc_fulfillment_allowed": true,
+    "unfilled_store_request": "TRACK_AS_DC_CAPACITY_SHORTAGE; do not fabricate shipment",
+    "only_actual_grn_increases_dc_on_hand": true,
+    "supplier_backorder_and_residual_cancellation": "Use frozen SUPPLIER_DC_EXECUTION_V1 mechanics"
+  },
+  "validation_contract": {
+    "mandatory_kpis": [
+      "CustomerDemandQty",
+      "CustomerFulfilledQty",
+      "CustomerShortageQty",
+      "CustomerServiceRate",
+      "TransferRequestedQty",
+      "TransferShippedQty",
+      "TransferCapacityShortageQty",
+      "DCTransferFillRate",
+      "EndingStoreInventoryQty",
+      "EndingDCInventoryQty",
+      "OpenDCToStorePipelineQty"
+    ],
+    "mandatory_segments": [
+      "ABCClass",
+      "MATURE_TRAINING_SEEN",
+      "NEW_TO_STORE_KNOWN_PRODUCT",
+      "NEW_TO_NETWORK",
+      "DORMANT_REACTIVATED"
+    ],
+    "mandatory_reconciliations": [
+      "Store physical flow",
+      "DC physical flow",
+      "DC-to-Store transfer bridge",
+      "No negative inventory",
+      "No future-demand quantity leakage"
+    ]
+  },
+  "version_lineage": {
+    "derived_from_policy": "STORE_REPLENISHMENT_POLICY_V1",
+    "derived_from_sha256": "25f5ea3b25dde276adb5a2e13cdd1cc3d215190ef07996d2efb99d605ced3fcc",
+    "development_evidence_checkpoint": "CP3G4F-R1",
+    "development_evidence_status": "PASS",
+    "change_scope": "NEW_ASSORTMENT_PRESTAGE_TIMING_ONLY",
+    "production_status": "NOT_PRODUCTION_CERTIFIED",
+    "holdout_status": "REPEATEDLY_EXPOSED_DEVELOPMENT_EVIDENCE"
+  },
+  "development_acceptance_evidence": {
+    "baseline_checkpoint": "CP3G4E",
+    "candidate_checkpoint": "CP3G4F-R1",
+    "baseline_customer_service": 0.9294,
+    "candidate_customer_service": 0.9758,
+    "baseline_holdout_shortage_qty": 2118,
+    "candidate_holdout_shortage_qty": 727,
+    "baseline_new_assortment_shortage_qty": 1688,
+    "candidate_new_assortment_shortage_qty": 298,
+    "baseline_request_fulfillment_rate": 0.9963,
+    "candidate_request_fulfillment_rate": 0.9984,
+    "candidate_ending_store_request_backlog_qty": 61,
+    "baseline_source_end_physical_network_inventory_qty": 120325,
+    "candidate_source_end_physical_network_inventory_qty": 120044,
+    "baseline_full_period_supplier_ordered_qty": 173750,
+    "candidate_full_period_supplier_ordered_qty": 174528
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "version": "DASHBOARD_PRESENTATION_V3",
+  "selected_page_contract": "INDEX is the saved opening page; Desktop may have stored any last-visited page before upgrade",
+  "checkpoint": "CP6B-R3",
+  "source": [
+    "AKS-05 PBIR build system",
+    "AKS-04 case studies",
+    "user desktop visual corrections"
+  ],
+  "status": "FILES_WRITTEN_AWAIT_DESKTOP_VISUAL_REVIEW",
+  "page_title": "Single centered title at top; no subtitle, storyline or footer",
+  "index": "Only a centered title and seven clickable graduated tiles; all names INSIDE tiles",
+  "navigation": "Native PageNavigation button transparently overlaying visible tile text; INDEX label inside tile",
+  "tile_palette": {
+    "p_executive": [
+      "#183B61",
+      "#25527A",
+      "#326890",
+      "#3B7DA0"
+    ],
+    "p_store_inventory": [
+      "#15516F",
+      "#1F6986",
+      "#2782A0",
+      "#339AB1"
+    ],
+    "p_dc_inventory": [
+      "#155E76",
+      "#1D758A",
+      "#258CA0",
+      "#39A7B5"
+    ],
+    "p_service": [
+      "#166F7A",
+      "#1D858D",
+      "#279A9A",
+      "#37AEA6"
+    ],
+    "p_supplier": [
+      "#1A665A",
+      "#267D69",
+      "#319478",
+      "#45AD8B"
+    ],
+    "p_opportunities": [
+      "#885925",
+      "#9D6B2D",
+      "#B37E3B",
+      "#C89450"
+    ],
+    "p_methodology": [
+      "#604B87",
+      "#735C9B",
+      "#876FAE",
+      "#9B82C0"
+    ]
+  },
+  "visual_headers": "100 percent transparent",
+  "future_cards_charts": "Titles centered; magnitude gradients based on governed measures; explicit storytelling through data visuals, not top/bottom explanatory copy",
+  "governance": "Historical observed sales/returns and simulated inventory; disclosed in methodology page/visual metadata, not decorative footer",
+  "must_not": [
+    "No invented business severity thresholds",
+    "No date slicing of as-of snapshot facts",
+    "No appending labels below navigation boxes",
+    "No unvalidated charts"
+  ],
+  "page_ids": {
+    "p_index": "9f0bc188040cea8e9d4d",
+    "p_executive": "3f0c385e4017cd30f78d",
+    "p_store_inventory": "5e6478817ce1282eba38",
+    "p_dc_inventory": "a548a42563bd23364a86",
+    "p_service": "dd1e58948202ae2638f0",
+    "p_supplier": "94e13585fcdf4651ad85",
+    "p_opportunities": "1c0a176374fe02a2417b",
+    "p_methodology": "a4ba216222c8e0d8770b"
+  }
+}

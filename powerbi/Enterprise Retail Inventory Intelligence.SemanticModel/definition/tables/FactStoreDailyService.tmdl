@@ -1,0 +1,78 @@
+table FactStoreDailyService
+	lineageTag: bb0db47e-5473-427f-b95c-7dc9e19c8243
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: ecc3b07d-a072-43da-8273-2f5a1d5c535d
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Store
+		dataType: string
+		isHidden
+		lineageTag: 7ae76b54-0bb8-4018-8c5c-a8e7bee0e770
+		summarizeBy: none
+		sourceColumn: Store
+
+	column DemandQty
+		dataType: int64
+		lineageTag: 16f16dd5-83f6-4957-90e4-352a4a64fcbe
+		summarizeBy: none
+		sourceColumn: DemandQty
+
+	column FulfilledQty
+		dataType: int64
+		lineageTag: 85f05dc8-e9da-4298-b600-1fd7d6cabeeb
+		summarizeBy: none
+		sourceColumn: FulfilledQty
+
+	column ShortageQty
+		dataType: int64
+		lineageTag: ccce6832-5031-43be-be3c-c2e1f007a8b5
+		summarizeBy: none
+		sourceColumn: ShortageQty
+
+	column ReturnInflowQty
+		dataType: int64
+		lineageTag: 2d555f2e-e5c5-4485-b9d1-bf917ef1586f
+		summarizeBy: none
+		sourceColumn: ReturnInflowQty
+
+	column UnitServiceRate
+		dataType: double
+		lineageTag: 138d178f-0bf0-429d-b22f-d364376786e5
+		summarizeBy: none
+		sourceColumn: UnitServiceRate
+
+	column DevelopmentPhase
+		dataType: string
+		lineageTag: 79b43188-739d-4726-817f-9a3008e7eb39
+		summarizeBy: none
+		sourceColumn: DevelopmentPhase
+
+	column DemandProvenance
+		dataType: string
+		lineageTag: 9582d939-7f7f-4cb0-9deb-4858202304eb
+		summarizeBy: none
+		sourceColumn: DemandProvenance
+
+	column ReturnProvenance
+		dataType: string
+		lineageTag: 84d353ef-e06d-41c0-98b5-fd3e526bd586
+		summarizeBy: none
+		sourceColumn: ReturnProvenance
+
+	partition FactStoreDailyService = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/analytics_v1/analytics_store_daily_service_v1.csv"), [Delimiter=",", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Date", type date}, {"Store", type text}, {"DemandQty", Int64.Type}, {"FulfilledQty", Int64.Type}, {"ShortageQty", Int64.Type}, {"ReturnInflowQty", Int64.Type}, {"UnitServiceRate", type number}, {"DevelopmentPhase", type text}, {"DemandProvenance", type text}, {"ReturnProvenance", type text}}, "en-US")
+				in
+				    Typed
+

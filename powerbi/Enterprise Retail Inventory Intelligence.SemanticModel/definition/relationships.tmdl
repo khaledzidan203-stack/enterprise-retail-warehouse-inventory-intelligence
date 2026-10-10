@@ -1,0 +1,80 @@
+relationship cp5b_01_FactStoreDailyService_to_DimDate
+	fromColumn: FactStoreDailyService.Date
+	toColumn: DimDate.Date
+
+relationship cp5b_02_FactStoreDailyService_to_DimStore
+	fromColumn: FactStoreDailyService.Store
+	toColumn: DimStore.Store
+
+relationship cp5b_03_FactStoreSkuAsOf_to_DimStore
+	fromColumn: FactStoreSkuAsOf.Store
+	toColumn: DimStore.Store
+
+relationship cp5b_04_FactStoreSkuAsOf_to_DimProduct
+	fromColumn: FactStoreSkuAsOf.'Product No'
+	toColumn: DimProduct.'Product No'
+
+relationship cp5b_05_FactDCSkuAsOf_to_DimProduct
+	fromColumn: FactDCSkuAsOf.'Product No'
+	toColumn: DimProduct.'Product No'
+
+relationship cp5b_06_FactDCSkuAsOf_to_DimDistributionCenter
+	fromColumn: FactDCSkuAsOf.DistributionCenter
+	toColumn: DimDistributionCenter.DistributionCenter
+
+relationship cp5b_07_FactSupplierDCExecution_to_DimDistributionCenter
+	fromColumn: FactSupplierDCExecution.DistributionCenter
+	toColumn: DimDistributionCenter.DistributionCenter
+
+relationship cp5b_08_FactSupplierDCExecution_to_DimSupplier
+	fromColumn: FactSupplierDCExecution.Supplier
+	toColumn: DimSupplier.Supplier
+
+relationship cp5b_09_DimStore_to_DimDistributionCenter
+	fromColumn: DimStore.DistributionCenter
+	toColumn: DimDistributionCenter.DistributionCenter
+
+relationship cp5b_10_DimProduct_to_DimSupplier
+	fromColumn: DimProduct.Supplier
+	toColumn: DimSupplier.Supplier
+
+relationship 77410dbf-4249-43de-843c-cc28f041beee
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_b6945c99-bd22-46e1-ab38-f59772ff98b9.Date
+
+relationship 43c77df5-5c04-4ede-8fe3-60516d9cf139
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.MonthStartDate
+	toColumn: LocalDateTable_14c1358d-852b-4c23-b1d2-47aab8ed9c1e.Date
+
+relationship 9494d425-ca56-45b3-a13a-8e36575ae3b1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactStoreSkuAsOf.StateDate
+	toColumn: LocalDateTable_59ac0169-52a5-4753-ba3f-92e3562db3da.Date
+
+relationship 9bdf083a-6552-44b5-bd29-3e3c7bed3924
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactStoreSkuAsOf.FirstPositiveDemandDate
+	toColumn: LocalDateTable_60bb0cf4-577c-4a8f-9daa-4c1b732c7f96.Date
+
+relationship f20ad477-ed3f-4b6b-b556-73670865cec1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactStoreSkuAsOf.LastPositiveDemandDate
+	toColumn: LocalDateTable_ce3aa691-1684-49cc-812d-becf1b772436.Date
+
+relationship e3a32642-daed-475b-aada-b4a787eee8e8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactStoreSkuAsOf.AsOfDate
+	toColumn: LocalDateTable_ee7ca4bb-539e-406c-918f-e9932f4344da.Date
+
+relationship 87fa3fd5-aa41-4838-83b9-0cb7326bd77a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDCSkuAsOf.StateDate
+	toColumn: LocalDateTable_c51cec63-330e-4760-9b16-45b57ccd3159.Date
+
+relationship 8caa7ccd-c9d4-4660-b973-ca587afa3f2b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactDCSkuAsOf.AsOfDate
+	toColumn: LocalDateTable_539c2942-0fba-413f-886f-73cfe5d115be.Date
+

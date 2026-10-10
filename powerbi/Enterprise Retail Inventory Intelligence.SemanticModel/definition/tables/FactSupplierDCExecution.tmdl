@@ -1,0 +1,82 @@
+table FactSupplierDCExecution
+	lineageTag: f88f3491-99f5-4f06-92eb-f274c4a2103b
+
+	column Supplier
+		dataType: string
+		isHidden
+		lineageTag: 0a67c1fa-89c1-48e3-ba84-2f722ef47580
+		summarizeBy: none
+		sourceColumn: Supplier
+
+	column DistributionCenter
+		dataType: string
+		isHidden
+		lineageTag: 0dd3427b-1e67-4809-9fa1-baf7687f7f52
+		summarizeBy: none
+		sourceColumn: DistributionCenter
+
+	column DistinctPOHeaders
+		dataType: int64
+		lineageTag: 828d64d4-26dd-4e39-a5cd-73da56f34ac8
+		summarizeBy: none
+		sourceColumn: DistinctPOHeaders
+
+	column POLines
+		dataType: int64
+		lineageTag: 6b0c5a31-a497-45a0-b6d2-4231b5bbb00a
+		summarizeBy: none
+		sourceColumn: POLines
+
+	column OrderedQty
+		dataType: int64
+		lineageTag: 4dcdad6f-e11f-4708-ae48-7606373bbaaa
+		summarizeBy: none
+		sourceColumn: OrderedQty
+
+	column ReceivedQty
+		dataType: int64
+		lineageTag: ff00dc59-a318-4e53-af9c-776a498b5828
+		summarizeBy: none
+		sourceColumn: ReceivedQty
+
+	column CancelledQty
+		dataType: int64
+		lineageTag: a8dab2d8-fd59-484c-a4e7-a4203d3844a6
+		summarizeBy: none
+		sourceColumn: CancelledQty
+
+	column OpenQty
+		dataType: int64
+		lineageTag: f6b8c59d-42a7-4656-9f21-6757039b8a8e
+		summarizeBy: none
+		sourceColumn: OpenQty
+
+	column ReceivedToOrderedRatio
+		dataType: double
+		lineageTag: d9734291-e803-4f2a-9afe-de577d1602f6
+		summarizeBy: none
+		sourceColumn: ReceivedToOrderedRatio
+
+	column Provenance
+		dataType: string
+		lineageTag: 4ebb36fa-70f9-4eb6-ac3e-88609d12698e
+		summarizeBy: none
+		sourceColumn: Provenance
+
+	column MeasurementBoundary
+		dataType: string
+		lineageTag: bd582479-9fbb-42d8-83e9-2acd89e43c04
+		summarizeBy: none
+		sourceColumn: MeasurementBoundary
+
+	partition FactSupplierDCExecution = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/analytics_v1/analytics_supplier_dc_execution_v1.csv"), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Supplier", type text}, {"DistributionCenter", type text}, {"DistinctPOHeaders", Int64.Type}, {"POLines", Int64.Type}, {"OrderedQty", Int64.Type}, {"ReceivedQty", Int64.Type}, {"CancelledQty", Int64.Type}, {"OpenQty", Int64.Type}, {"ReceivedToOrderedRatio", type number}, {"Provenance", type text}, {"MeasurementBoundary", type text}}, "en-US")
+				in
+				    Typed
+

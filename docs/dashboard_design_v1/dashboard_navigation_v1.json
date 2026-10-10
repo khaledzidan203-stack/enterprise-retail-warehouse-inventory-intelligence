@@ -1,0 +1,72 @@
+{
+  "root": "p_index",
+  "default_open_page": "p_index",
+  "tiles": [
+    {
+      "from": "p_index",
+      "to": "p_executive",
+      "label": "Executive Overview"
+    },
+    {
+      "from": "p_index",
+      "to": "p_store_inventory",
+      "label": "Store Inventory Intelligence"
+    },
+    {
+      "from": "p_index",
+      "to": "p_dc_inventory",
+      "label": "DC Inventory Intelligence"
+    },
+    {
+      "from": "p_index",
+      "to": "p_service",
+      "label": "Sales & Stockout Performance"
+    },
+    {
+      "from": "p_index",
+      "to": "p_supplier",
+      "label": "Supplier Execution Simulation"
+    },
+    {
+      "from": "p_index",
+      "to": "p_opportunities",
+      "label": "Inventory Opportunities (Exploratory)"
+    },
+    {
+      "from": "p_index",
+      "to": "p_methodology",
+      "label": "Data Quality & Methodology"
+    }
+  ],
+  "home_buttons": [
+    {
+      "from": "p_executive",
+      "to": "p_index"
+    },
+    {
+      "from": "p_store_inventory",
+      "to": "p_index"
+    },
+    {
+      "from": "p_dc_inventory",
+      "to": "p_index"
+    },
+    {
+      "from": "p_service",
+      "to": "p_index"
+    },
+    {
+      "from": "p_supplier",
+      "to": "p_index"
+    },
+    {
+      "from": "p_opportunities",
+      "to": "p_index"
+    },
+    {
+      "from": "p_methodology",
+      "to": "p_index"
+    }
+  ],
+  "runtime_navigation": "CP6B+ requires native donor button and valid PBIR page IDs"
+}

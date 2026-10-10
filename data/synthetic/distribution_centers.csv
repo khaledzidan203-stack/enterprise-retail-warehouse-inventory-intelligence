@@ -1,0 +1,5 @@
+DistributionCenter,DistributionCenterName,RegionCode,RegionName,IsSynthetic
+DC-01,North Distribution Center,REG-01,North Region,1
+DC-02,Central Distribution Center,REG-02,Central Region,1
+DC-03,East Distribution Center,REG-03,East Region,1
+DC-04,West Distribution Center,REG-04,West Region,1

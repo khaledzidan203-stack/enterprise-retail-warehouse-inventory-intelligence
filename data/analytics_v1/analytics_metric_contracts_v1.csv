@@ -1,0 +1,11 @@
+Metric,GovernedFormula,Grain,SourceProvenance,Rules,Status
+ServiceRate,SUM(FulfilledQty)/SUM(DemandQty),Date×Store,SIMULATED,DemandQty>0,READY_DEVELOPMENT
+CustomerReturns,SUM(ReturnInflowQty),Date×Store,OBSERVED_RAW,Return inflow to Store,READY_OBSERVED
+StoreAsOfOnHand,Last StateDate<=AsOf per Store×Product,AsOf×Store×Product,SIMULATED,Sparse state reconstruction,READY_DEVELOPMENT
+DaysSinceLastPositiveDemand,AsOfDate - MAX(positive outbound sale Date),AsOf×Store×Product,OBSERVED_RAW,Null if no sale,DESCRIPTIVE
+TrailingGrossUnits28/56/84,SUM(RAW positive outbound Qty) in inclusive calendar window,AsOf×Store×Product,OBSERVED_RAW,Window sensitivity not policy,DESCRIPTIVE_EXPLORATORY
+CoverageDays28/56/84,Simulated OnHand/(trailing gross units/window days),AsOf×Store×Product,MIXED,Undefined/null for zero-demand,DESCRIPTIVE_EXPLORATORY
+DCNetPosition,OnHand+SupplierOnOrder-StoreBacklog,AsOf×DC×Product,SIMULATED,Frozen DC policy comparison diagnostic,READY_DEVELOPMENT
+SupplierReceivedToOrderedRatio,ReceivedQty/OrderedQty by PO cohort as of source end,Supplier×DC,SIMULATED,Not true vendor OTIF or on-time score,READY_DEVELOPMENT
+FinancialOverstock/GMROI,NOT COMPUTED,N/A,N/A,Comparable Store cost basis not approved,BLOCK_VALUATION
+Transfer/Return/MarkdownRecommendation,NOT COMPUTED,N/A,N/A,Requires explicit business approval,BLOCK_POLICY

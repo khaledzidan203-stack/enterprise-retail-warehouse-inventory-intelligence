@@ -1,0 +1,11 @@
+# Publication boundary and rights
+
+The original project is published with the owner's explicit authorization. The previous checkpoint's missing-provenance restriction was resolved: Mendeley Data publishes both exact RAW files under CC BY 4.0, and their SHA-256 hashes match the local originals. See [source attribution](../DATA_SOURCES.md). The source license also requires attribution when distributing adaptations; methodology identifies observed and simulated fields.
+
+This release includes canonical Python/SQL/tests, configurations, governed fixtures, original RAW, final integrated V2 references, historical analytical and dimension CSVs, complete PBIP/PBIR/TMDL, all eight screenshots and relevant existing documentation. Original CSVs and report layouts/measures/relationships are preserved. NEW_REPLAY_V1 remains a distinct scenario; historical equivalence and Desktop runtime validation are not claimed.
+
+Excluded content: `.pbi` caches and local settings; bytecode; environments; private dashboard construction scripts; backups/recovery copies; temporary checkpoint and build outputs; superseded integrated V1 datasets. Their local originals remain untouched. Final V2 and its historical presentation tables are the report's published baseline. Source-code license selection remains separate from the dataset's CC BY license; this repository does not invent a code license.
+
+`release_manifest.json` lists the exact complete publication and historical source hashes. `prepare_release.py --check` checks this list, credential/personal-path patterns, file sizes, original data hashes, required report files/pages/visuals/measures, screenshots and nine parameterized imports. Pattern scanning is an essential check, not a universal guarantee against every possible secret. Git is initialized from this complete allowlist; no previous temporary source-only history or private working history is reused. No force-push is used.
+
+The included screenshots show the original historical results. The report must be configured using `python configure_powerbi.py` and the included historical data, not generated replacement outputs. Actual Power BI refresh/render behavior remains `POWER_BI_RUNTIME_NOT_VERIFIED` until tested in Desktop. No analytical pipeline was rerun for this publication.

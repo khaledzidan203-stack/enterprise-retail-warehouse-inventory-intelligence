@@ -1,0 +1,178 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "0a3dce06c4077cf9194c",
+  "position": {
+    "x": 380,
+    "y": 616,
+    "width": 356,
+    "height": 253,
+    "z": 780,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "INTERPRETATION & LIMITS",
+                    "textStyle": {
+                      "color": "#173B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "13pt",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Quality counts validate these modeled files only",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Zero exceptions does NOT certify live ERP accuracy",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Service rate = SUM(fulfilled) / SUM(demand)",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Do NOT average row-level UnitServiceRate",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "BLANK rates can be valid when demand is zero",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Full-history returns are not a date-filtered KPI",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "No audited lost sales, SLA or policy approval",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "howCreated": "DraggedToCanvas"
+}

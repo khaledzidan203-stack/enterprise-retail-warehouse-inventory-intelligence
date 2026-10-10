@@ -1,0 +1,66 @@
+{
+  "analytics_dataset": "CP4C_DESCRIPTIVE_ANALYTICS_V1",
+  "status": "DEVELOPMENT_VALIDATED_DESCRIPTIVE_ONLY",
+  "created_at": "2026-10-08T23:45:02",
+  "as_of_date": "2026-04-24",
+  "evaluation_cutoff": "2026-02-02",
+  "source_integrated_v2_manifest_sha256": "b1a27573cc2d8a128ab60be412ee97c60189edc3f6f757a815c467f3b0f29cd8",
+  "source_integrated_v1_manifest_sha256": "8dd54632052d2ad623d6a255fa762bd5c33154903712137334b353e2f8b8bba3",
+  "is_production_certified": false,
+  "holdout_repeatedly_exposed": true,
+  "source_provenance": {
+    "raw_customer_demand": "OBSERVED",
+    "customer_return_inflow": "OBSERVED",
+    "inventory_and_supply_replay": "SYNTHETIC"
+  },
+  "coverage_exploration_windows_calendar_days": [
+    28,
+    56,
+    84
+  ],
+  "coverage_windows_policy_approved": false,
+  "pending_decision_rules": [
+    "overstock",
+    "replenishment_stop",
+    "transfer",
+    "supplier_return",
+    "markdown",
+    "valuation",
+    "unbiased_future_validation",
+    "ex_ante_launch_calendar"
+  ],
+  "grains": {
+    "analytics_store_sku_asof_v1.csv": "one AsOf×Store×Product",
+    "analytics_dc_sku_asof_v1.csv": "one AsOf×DistributionCenter×Product",
+    "analytics_store_daily_service_v1.csv": "one Date×Store when positive demand or return exists",
+    "analytics_supplier_dc_execution_v1.csv": "one Supplier×DistributionCenter full PO source-end cohort",
+    "analytics_metric_contracts_v1.csv": "one governed KPI contract"
+  },
+  "artifacts": [
+    {
+      "file_name": "analytics_store_sku_asof_v1.csv",
+      "row_count": 50447,
+      "sha256": "eb53dec9d1acea0898392ab11a8d2e25e45fd09e7d35a0ec29929e42fd60dc1f"
+    },
+    {
+      "file_name": "analytics_dc_sku_asof_v1.csv",
+      "row_count": 9304,
+      "sha256": "a091d090bf77958921900cf89bac8a7598465b35fd4ef280566382d0cf2b90d9"
+    },
+    {
+      "file_name": "analytics_store_daily_service_v1.csv",
+      "row_count": 12706,
+      "sha256": "e2037b0479f8ac6396f072ab12bb3b1c717a174f7228506189f49511409a8d6f"
+    },
+    {
+      "file_name": "analytics_supplier_dc_execution_v1.csv",
+      "row_count": 120,
+      "sha256": "64f3d74011c635ac67c4d72bf44b7f43866f8ddeaca5fd600c65f4ae77d74991"
+    },
+    {
+      "file_name": "analytics_metric_contracts_v1.csv",
+      "row_count": 10,
+      "sha256": "223ff6a7dff4f7670f15726732575df1430932250da807a8242455e826f1bd50"
+    }
+  ]
+}

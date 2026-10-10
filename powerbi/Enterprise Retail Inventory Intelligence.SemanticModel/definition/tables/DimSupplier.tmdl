@@ -1,0 +1,56 @@
+table DimSupplier
+	lineageTag: 4fabc321-e577-4438-b1f7-02dbdb8273c0
+
+	column Supplier
+		dataType: string
+		lineageTag: 78facae5-1d54-441d-9e44-85fdbf3f1ed3
+		summarizeBy: none
+		sourceColumn: Supplier
+
+	column SupplierClass
+		dataType: string
+		lineageTag: 1faf8164-d082-482c-8049-e2f22cff7190
+		summarizeBy: none
+		sourceColumn: SupplierClass
+
+	column ProductCount
+		dataType: int64
+		lineageTag: df6d7cbb-c26e-49e9-9786-34dc9db2db62
+		summarizeBy: none
+		sourceColumn: ProductCount
+
+	column BaseLeadTimeDays
+		dataType: int64
+		lineageTag: c9228110-7dfd-4967-9cf5-ef916417f5e1
+		summarizeBy: none
+		sourceColumn: BaseLeadTimeDays
+
+	column OTIFTarget
+		dataType: double
+		lineageTag: 2f286688-01f5-4e88-a34b-a230b78cca86
+		summarizeBy: none
+		sourceColumn: OTIFTarget
+
+	column FillRateTarget
+		dataType: double
+		lineageTag: 330ba345-33a6-4b0a-ac8a-1d59c5afd64d
+		summarizeBy: none
+		sourceColumn: FillRateTarget
+
+	column IsSynthetic
+		dataType: int64
+		lineageTag: 3a95892b-9c3a-4f43-a9f6-087fba72d372
+		summarizeBy: none
+		sourceColumn: IsSynthetic
+
+	partition DimSupplier = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/powerbi_model_v1/DimSupplier.csv"), [Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Supplier", type text}, {"SupplierClass", type text}, {"ProductCount", Int64.Type}, {"BaseLeadTimeDays", Int64.Type}, {"OTIFTarget", type number}, {"FillRateTarget", type number}, {"IsSynthetic", Int64.Type}}, "en-US")
+				in
+				    Typed
+

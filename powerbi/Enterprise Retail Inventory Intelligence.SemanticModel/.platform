@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Enterprise Retail Inventory Intelligence"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9d84f6ef-f717-453c-8ff0-a3c7a58f4985"
+  }
+}

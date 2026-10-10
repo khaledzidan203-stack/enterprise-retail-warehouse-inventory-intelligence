@@ -1,0 +1,49 @@
+{
+  "checkpoint": "CP6A",
+  "status": "PROPOSED_DESIGN_CONTRACT_READY_FOR_REVIEW",
+  "project_pbip": "Enterprise Retail Inventory Intelligence.pbip",
+  "semantic_measure_count": 41,
+  "semantic_measure_tmdl_sha256": "76534a6d26cec243c6e38daa28baceef17270dd098816ffb22ada4cc07b2fa3d",
+  "source_dimension_manifest_sha256": "006cd7b88196699db550b80028047b0bcdbcefa95c8987d50ff6366778ef176f",
+  "source_analytics_manifest_sha256": "22d74003d823c581148a2d305608500c16dcbef7fe58a8a7120b4c6c8cb3474f",
+  "report_pages_modified": false,
+  "semantic_model_modified": false,
+  "canvas": [
+    1600,
+    900
+  ],
+  "number_of_pages": 8,
+  "visual_inventory_count": 105,
+  "artifacts": [
+    {
+      "file_name": "dashboard_pages_v1.json",
+      "sha256": "6599473497f62a3ad5c17bc5a4c7be098a5d69d046e2f972e22c71fc58830d93",
+      "byte_size": 11054
+    },
+    {
+      "file_name": "dashboard_design_tokens_v1.json",
+      "sha256": "69ef6f03f3ff1fc8e384b960d4608040b1b8a873c001331d5b9fcc7ccbe8b24e",
+      "byte_size": 1169
+    },
+    {
+      "file_name": "dashboard_visual_inventory_v1.csv",
+      "sha256": "706b63dde32d52377605287470c945060cf97e431d8cf6e51aec482cbb92a30a",
+      "byte_size": 15358
+    },
+    {
+      "file_name": "dashboard_filter_interactions_v1.csv",
+      "sha256": "39a9b544bd821899d51f2a2b26fd252a57cc0c7b4ee8570fd54672272e717c0f",
+      "byte_size": 2068
+    },
+    {
+      "file_name": "dashboard_navigation_v1.json",
+      "sha256": "7a366e8b714a700d15dec977a7a6a9d1b108cb65b19e3a2896792b070b6de706",
+      "byte_size": 1429
+    },
+    {
+      "file_name": "dashboard_implementation_plan_v1.md",
+      "sha256": "40cfe31889d5c9f6bc1dc29fdc190446e6a9be88f350ae1056b2f703cd2a166c",
+      "byte_size": 3051
+    }
+  ]
+}

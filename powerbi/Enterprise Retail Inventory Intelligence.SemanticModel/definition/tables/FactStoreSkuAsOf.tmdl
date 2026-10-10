@@ -1,0 +1,263 @@
+table FactStoreSkuAsOf
+	lineageTag: 677229fd-0a03-4a82-b2eb-060842cec7f7
+
+	column StateDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: f8ee6222-6048-458e-a964-53d986cdaa06
+		summarizeBy: none
+		sourceColumn: StateDate
+
+		variation Variation
+			isDefault
+			relationship: 9494d425-ca56-45b3-a13a-8e36575ae3b1
+			defaultHierarchy: LocalDateTable_59ac0169-52a5-4753-ba3f-92e3562db3da.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Store
+		dataType: string
+		isHidden
+		lineageTag: 5346203f-cf01-4bea-9166-cacef7b1150a
+		summarizeBy: none
+		sourceColumn: Store
+
+	column 'Product No'
+		dataType: string
+		isHidden
+		lineageTag: 5e20e166-f6a0-4612-8906-b1fa0455a039
+		summarizeBy: none
+		sourceColumn: Product No
+
+	column DistributionCenter
+		dataType: string
+		isHidden
+		lineageTag: 6f8b2b61-67a2-40eb-a96b-5ea0b39e6d17
+		summarizeBy: none
+		sourceColumn: DistributionCenter
+
+	column ABCClass
+		dataType: string
+		lineageTag: fbaa837c-6414-4205-9168-624a9b7f3c2e
+		summarizeBy: none
+		sourceColumn: ABCClass
+
+	column EndOnHandQty
+		dataType: int64
+		lineageTag: 2daf0716-e190-4667-86bb-7bc073a29e3f
+		summarizeBy: sum
+		sourceColumn: EndOnHandQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndInTransitQty
+		dataType: int64
+		lineageTag: b94901fa-1031-4bbd-b9ae-3106e4de4acb
+		summarizeBy: sum
+		sourceColumn: EndInTransitQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column EndOpenRequestQty
+		dataType: int64
+		lineageTag: 472ccefc-8b68-44e8-9476-ce48a778a7f2
+		summarizeBy: sum
+		sourceColumn: EndOpenRequestQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActiveAssortmentFlag
+		dataType: int64
+		lineageTag: e7833304-1a6b-44a7-9829-842be257f0d7
+		summarizeBy: sum
+		sourceColumn: ActiveAssortmentFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstPositiveDemandDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: b4eab8f2-a606-4eb5-ad00-4bdb8e085be1
+		summarizeBy: none
+		sourceColumn: FirstPositiveDemandDate
+
+		variation Variation
+			isDefault
+			relationship: 9bdf083a-6552-44b5-bd29-3e3c7bed3924
+			defaultHierarchy: LocalDateTable_60bb0cf4-577c-4a8f-9daa-4c1b732c7f96.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LastPositiveDemandDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 432d31e9-e70e-49a9-ac53-38a2b4dcb5c9
+		summarizeBy: none
+		sourceColumn: LastPositiveDemandDate
+
+		variation Variation
+			isDefault
+			relationship: f20ad477-ed3f-4b6b-b556-73670865cec1
+			defaultHierarchy: LocalDateTable_ce3aa691-1684-49cc-812d-becf1b772436.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FullHistoryGrossDemandQty
+		dataType: int64
+		lineageTag: a09f8b98-aad4-4efc-80f9-7b5e0ff4b696
+		summarizeBy: sum
+		sourceColumn: FullHistoryGrossDemandQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysSinceLastPositiveDemand
+		dataType: double
+		lineageTag: 436e98db-d463-429c-bbe1-4fb271c78111
+		summarizeBy: sum
+		sourceColumn: DaysSinceLastPositiveDemand
+
+		annotation SummarizationSetBy = Automatic
+
+	column NeverObservedPositiveDemandFlag
+		dataType: int64
+		lineageTag: 56e424dc-94f0-4f2d-8232-86b65b52ff5d
+		summarizeBy: sum
+		sourceColumn: NeverObservedPositiveDemandFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column AsOfDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 2776e097-3ec0-416e-8f85-f1218b7c1c46
+		summarizeBy: none
+		sourceColumn: AsOfDate
+
+		variation Variation
+			isDefault
+			relationship: e3a32642-daed-475b-aada-b4a787eee8e8
+			defaultHierarchy: LocalDateTable_ee7ca4bb-539e-406c-918f-e9932f4344da.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FullHistoryCustomerReturnQty
+		dataType: int64
+		lineageTag: acf178c3-d2ee-4e5e-adc7-313d3b16bde6
+		summarizeBy: sum
+		sourceColumn: FullHistoryCustomerReturnQty
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrailingGrossUnits28
+		dataType: int64
+		lineageTag: 07e99603-71e3-4f79-855c-870035fdf843
+		summarizeBy: sum
+		sourceColumn: TrailingGrossUnits28
+
+		annotation SummarizationSetBy = Automatic
+
+	column CoverageDays28
+		dataType: double
+		lineageTag: 5b8c6789-7b01-4159-95d8-56935570f0ec
+		summarizeBy: sum
+		sourceColumn: CoverageDays28
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZeroVelocityFlag28
+		dataType: int64
+		lineageTag: 1c8b2f03-cd29-49b7-bad9-973b37989c0a
+		summarizeBy: sum
+		sourceColumn: ZeroVelocityFlag28
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrailingGrossUnits56
+		dataType: int64
+		lineageTag: 7aafbd40-2252-4f9b-b289-483da84e8c0d
+		summarizeBy: sum
+		sourceColumn: TrailingGrossUnits56
+
+		annotation SummarizationSetBy = Automatic
+
+	column CoverageDays56
+		dataType: double
+		lineageTag: 3e828098-88f2-4fd4-9407-835d9d57a754
+		summarizeBy: sum
+		sourceColumn: CoverageDays56
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZeroVelocityFlag56
+		dataType: int64
+		lineageTag: c6d5ae52-8273-4506-ad2a-a721a0203510
+		summarizeBy: sum
+		sourceColumn: ZeroVelocityFlag56
+
+		annotation SummarizationSetBy = Automatic
+
+	column TrailingGrossUnits84
+		dataType: int64
+		lineageTag: 5873be55-5fb4-48a0-a982-fb880221e878
+		summarizeBy: sum
+		sourceColumn: TrailingGrossUnits84
+
+		annotation SummarizationSetBy = Automatic
+
+	column CoverageDays84
+		dataType: double
+		lineageTag: 8b8eb442-20fd-4499-8751-b15012736040
+		summarizeBy: sum
+		sourceColumn: CoverageDays84
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZeroVelocityFlag84
+		dataType: int64
+		lineageTag: 9262c275-b67b-478b-bc5e-ca8965e422dc
+		summarizeBy: sum
+		sourceColumn: ZeroVelocityFlag84
+
+		annotation SummarizationSetBy = Automatic
+
+	column InventoryProvenance
+		dataType: string
+		lineageTag: 39213d44-243e-476b-9696-320d489a8331
+		summarizeBy: none
+		sourceColumn: InventoryProvenance
+
+	column DemandProvenance
+		dataType: string
+		lineageTag: 9ce8518f-566b-471c-a5e4-84c3eef9ecba
+		summarizeBy: none
+		sourceColumn: DemandProvenance
+
+	column ReturnProvenance
+		dataType: string
+		lineageTag: 24d687bf-03f7-4ca4-b376-6953e9b1a18b
+		summarizeBy: none
+		sourceColumn: ReturnProvenance
+
+	column DecisionStatus
+		dataType: string
+		lineageTag: 2306cd3a-d7f2-43dd-8e84-44683a2f83d0
+		summarizeBy: none
+		sourceColumn: DecisionStatus
+
+	column PolicyApprovalStatus
+		dataType: string
+		lineageTag: 167da42e-427d-4120-9e39-061465a0adad
+		summarizeBy: none
+		sourceColumn: PolicyApprovalStatus
+
+	partition FactStoreSkuAsOf = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/analytics_v1/analytics_store_sku_asof_v1.csv"), [Delimiter=",", Columns=30, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"StateDate", type date}, {"Store", type text}, {"Product No", type text}, {"DistributionCenter", type text}, {"ABCClass", type text}, {"EndOnHandQty", Int64.Type}, {"EndInTransitQty", Int64.Type}, {"EndOpenRequestQty", Int64.Type}, {"ActiveAssortmentFlag", Int64.Type}, {"FirstPositiveDemandDate", type date}, {"LastPositiveDemandDate", type date}, {"FullHistoryGrossDemandQty", Int64.Type}, {"DaysSinceLastPositiveDemand", type number}, {"NeverObservedPositiveDemandFlag", Int64.Type}, {"AsOfDate", type date}, {"FullHistoryCustomerReturnQty", Int64.Type}, {"TrailingGrossUnits28", Int64.Type}, {"CoverageDays28", type number}, {"ZeroVelocityFlag28", Int64.Type}, {"TrailingGrossUnits56", Int64.Type}, {"CoverageDays56", type number}, {"ZeroVelocityFlag56", Int64.Type}, {"TrailingGrossUnits84", Int64.Type}, {"CoverageDays84", type number}, {"ZeroVelocityFlag84", Int64.Type}, {"InventoryProvenance", type text}, {"DemandProvenance", type text}, {"ReturnProvenance", type text}, {"DecisionStatus", type text}, {"PolicyApprovalStatus", type text}}, "en-US")
+				in
+				    Typed
+

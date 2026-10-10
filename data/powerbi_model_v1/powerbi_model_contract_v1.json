@@ -1,0 +1,202 @@
+{
+  "checkpoint": "CP5A",
+  "status": "MODEL_ASSETS_PREPARED_NOT_IMPORTED",
+  "existing_pbip_file": "Enterprise Retail Inventory Intelligence.pbip",
+  "as_of_date": "2026-04-24",
+  "history_start": "2025-06-01",
+  "history_end": "2026-04-24",
+  "repeated_holdout": true,
+  "production_certified": false,
+  "business_context": "Historical apparel/footwear with observed RAW demand/returns and synthetic Store/DC/Supplier flows",
+  "dimensions": {
+    "DimDate": {
+      "csv": "data/powerbi_model_v1/DimDate.csv",
+      "rows": 328
+    },
+    "DimStore": {
+      "csv": "data/powerbi_model_v1/DimStore.csv",
+      "rows": 40
+    },
+    "DimProduct": {
+      "csv": "data/powerbi_model_v1/DimProduct.csv",
+      "rows": 2326
+    },
+    "DimDistributionCenter": {
+      "csv": "data/powerbi_model_v1/DimDistributionCenter.csv",
+      "rows": 4
+    },
+    "DimSupplier": {
+      "csv": "data/powerbi_model_v1/DimSupplier.csv",
+      "rows": 30
+    }
+  },
+  "facts": {
+    "FactStoreSkuAsOf": {
+      "csv": "data/analytics_v1/analytics_store_sku_asof_v1.csv",
+      "grain": "one as-of Store×Product",
+      "is_snapshot": true
+    },
+    "FactDCSkuAsOf": {
+      "csv": "data/analytics_v1/analytics_dc_sku_asof_v1.csv",
+      "grain": "one as-of DC×Product",
+      "is_snapshot": true
+    },
+    "FactStoreDailyService": {
+      "csv": "data/analytics_v1/analytics_store_daily_service_v1.csv",
+      "grain": "one Date×Store with demand and/or returns",
+      "is_snapshot": false
+    },
+    "FactSupplierDCExecution": {
+      "csv": "data/analytics_v1/analytics_supplier_dc_execution_v1.csv",
+      "grain": "one Supplier×DC cumulative supplier execution cohort",
+      "is_snapshot": true
+    }
+  },
+  "documentation_not_loaded_as_business_fact": "data/analytics_v1/analytics_metric_contracts_v1.csv",
+  "relationships_proposed_for_CP5B": [
+    {
+      "from_one": "DimDate",
+      "one_key": "Date",
+      "to_many": "FactStoreDailyService",
+      "many_key": "Date",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": "Date slicers filter the service trend only"
+    },
+    {
+      "from_one": "DimStore",
+      "one_key": "Store",
+      "to_many": "FactStoreDailyService",
+      "many_key": "Store",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimStore",
+      "one_key": "Store",
+      "to_many": "FactStoreSkuAsOf",
+      "many_key": "Store",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimProduct",
+      "one_key": "Product No",
+      "to_many": "FactStoreSkuAsOf",
+      "many_key": "Product No",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimProduct",
+      "one_key": "Product No",
+      "to_many": "FactDCSkuAsOf",
+      "many_key": "Product No",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimDistributionCenter",
+      "one_key": "DistributionCenter",
+      "to_many": "FactDCSkuAsOf",
+      "many_key": "DistributionCenter",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimDistributionCenter",
+      "one_key": "DistributionCenter",
+      "to_many": "FactSupplierDCExecution",
+      "many_key": "DistributionCenter",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimSupplier",
+      "one_key": "Supplier",
+      "to_many": "FactSupplierDCExecution",
+      "many_key": "Supplier",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": ""
+    },
+    {
+      "from_one": "DimDistributionCenter",
+      "one_key": "DistributionCenter",
+      "to_many": "DimStore",
+      "many_key": "DistributionCenter",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": "Snowflake: DC slicer filters assigned stores; never create a second direct DimDC→FactStoreSkuAsOf edge"
+    },
+    {
+      "from_one": "DimSupplier",
+      "one_key": "Supplier",
+      "to_many": "DimProduct",
+      "many_key": "Supplier",
+      "cardinality": "1:*",
+      "filter_direction": "Single",
+      "active": true,
+      "comment": "Snowflake: supplier filters product attributes; no extra direct DimSupplier→FactDCSkuAsOf edge"
+    }
+  ],
+  "measures_proposed_for_CP5C_not_yet_installed": {
+    "Demand Units": "SUM(FactStoreDailyService[DemandQty])",
+    "Fulfilled Units": "SUM(FactStoreDailyService[FulfilledQty])",
+    "Shortage Units": "SUM(FactStoreDailyService[ShortageQty])",
+    "Unit Service Rate": "DIVIDE([Fulfilled Units], [Demand Units])",
+    "Customer Return Units": "SUM(FactStoreDailyService[ReturnInflowQty])",
+    "Store OnHand Units": "SUM(FactStoreSkuAsOf[EndOnHandQty])",
+    "Store InTransit Units": "SUM(FactStoreSkuAsOf[EndInTransitQty])",
+    "Store Open Request Units": "SUM(FactStoreSkuAsOf[EndOpenRequestQty])",
+    "DC OnHand Units": "SUM(FactDCSkuAsOf[EndOnHandQty])",
+    "Supplier OnOrder Units": "SUM(FactDCSkuAsOf[EndOnOrderQty])",
+    "Supplier Ordered Units": "SUM(FactSupplierDCExecution[OrderedQty])",
+    "Supplier Received Units": "SUM(FactSupplierDCExecution[ReceivedQty])",
+    "Supplier Received-To-Ordered Ratio": "DIVIDE([Supplier Received Units], [Supplier Ordered Units])"
+  },
+  "filter_interaction_contract": {
+    "DimDate": "filters ONLY FactStoreDailyService; as-of stock snapshots and cumulative supplier cohort do not respond to sales date slicer",
+    "DimStore": "filters StoreSku snapshot + StoreDailyService",
+    "DimDistributionCenter": "filters DC snapshot + SupplierDC execution and assigned stores via DimStore",
+    "DimProduct": "filters Store/DC SKU as-of; StoreDailyService is aggregated by Store×Date, so cannot be filtered by product",
+    "DimSupplier": "filters SupplierDC execution + Product-derived SKU snapshots; no direct filter into StoreDailyService",
+    "SnapshotDates": "Store/DC snapshot is ONLY 2026-04-24; never claim historical stock trends from this one date"
+  },
+  "power_query_type_contract_for_CP5B": {
+    "keys": "Store, Product No, Supplier, DistributionCenter MUST be Text",
+    "date_columns": "DimDate.Date and FactStoreDailyService.Date MUST be Date; snapshot AsOfDate is informational, not actively related to DimDate",
+    "unit_quantities": "Whole Number when validated; never sum UnitServiceRate / row-level ratios",
+    "ratios": "Decimal Number; use explicit DAX DIVIDE-of-totals, not average of row-level rates",
+    "snapshot": "Store/DC SKU as-of columns are stock balances on 2026-04-24 only"
+  },
+  "excluded_from_current_model": [
+    "Financial inventory valuation / GMROI",
+    "Approved overstock thresholds",
+    "Executed transfer recommendations",
+    "Supplier return eligibility",
+    "Markdown price optimization",
+    "Expiry / lot aging"
+  ],
+  "warnings": [
+    "Store/DC/Supplier operational flows are DEVELOPMENT SYNTHETIC, not live ERP",
+    "New assortment activation proxy uses first future observed sale (ORACLE); deployment requires ex-ante activation calendar",
+    "Holdout repeatedly exposed during development",
+    "Power BI file is not edited; must execute import / Desktop validations in CP5B/CP5C"
+  ]
+}

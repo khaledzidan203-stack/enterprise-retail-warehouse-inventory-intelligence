@@ -1,0 +1,26 @@
+table DimDistributionCenter
+	lineageTag: d2c601f5-5c24-422e-ac14-9c9b0e3da43b
+
+	column DistributionCenter
+		dataType: string
+		lineageTag: 0511dbb4-ce95-4040-b69e-4ad302dbcda5
+		summarizeBy: none
+		sourceColumn: DistributionCenter
+
+	column IsSynthetic
+		dataType: int64
+		lineageTag: dc943500-c79b-4402-b296-8d88295380aa
+		summarizeBy: none
+		sourceColumn: IsSynthetic
+
+	partition DimDistributionCenter = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/powerbi_model_v1/DimDistributionCenter.csv"), [Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"DistributionCenter", type text}, {"IsSynthetic", Int64.Type}}, "en-US")
+				in
+				    Typed
+

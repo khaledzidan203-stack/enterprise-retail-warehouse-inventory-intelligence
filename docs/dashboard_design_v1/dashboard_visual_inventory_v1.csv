@@ -1,0 +1,106 @@
+page_id,visual_id,role,title,visual_type,x,y,width,height,measures,fields,filter_scope
+p_index,p_index_header_01,header,INDEX,textbox,60,27,1420,73,,,STATIC
+p_index,p_index_subtitle_01,subtitle,Enterprise Retail Inventory Intelligence | Report navigation,textbox,60,104,1460,38,,,STATIC
+p_index,p_index_navigation_01,navigation,Executive Overview,page_nav_tile,60,230,352,176,,p_executive,STATIC
+p_index,p_index_navigation_02,navigation,Store Inventory Intelligence,page_nav_tile,436,230,352,176,,p_store_inventory,STATIC
+p_index,p_index_navigation_03,navigation,DC Inventory Intelligence,page_nav_tile,812,230,352,176,,p_dc_inventory,STATIC
+p_index,p_index_navigation_04,navigation,Sales & Stockout Performance,page_nav_tile,1188,230,352,176,,p_service,STATIC
+p_index,p_index_navigation_05,navigation,Supplier Execution Simulation,page_nav_tile,60,434,352,176,,p_supplier,STATIC
+p_index,p_index_navigation_06,navigation,Inventory Opportunities (Exploratory),page_nav_tile,436,434,352,176,,p_opportunities,STATIC
+p_index,p_index_navigation_07,navigation,Data Quality & Methodology,page_nav_tile,812,434,352,176,,p_methodology,STATIC
+p_index,p_index_footer_01,footer,Historical apparel/footwear demonstration; Store/DC/Supplier movement simulated. Not a live ERP dashboard.,textbox,60,800,1470,50,,,STATIC
+p_executive,p_executive_header_01,header,Executive Overview,textbox,60,27,1420,73,,,STATIC
+p_executive,p_executive_subtitle_01,subtitle,Historical physical network snapshot + separately labeled development holdout service,textbox,60,104,1460,38,,,STATIC
+p_executive,p_executive_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_executive,p_executive_kpi_01,kpi,Network Physical Units,cardVisual,60,201,478,111,Network Physical Units,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_kpi_02,kpi,Store On Hand Units,cardVisual,562,201,478,111,Store On Hand Units,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_kpi_03,kpi,DC On Hand Units,cardVisual,1064,201,478,111,DC On Hand Units,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_kpi_04,kpi,Holdout Demand Units,cardVisual,60,326,478,111,Holdout Demand Units,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_kpi_05,kpi,Holdout Shortage Units,cardVisual,562,326,478,111,Holdout Shortage Units,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_kpi_06,kpi,Holdout Unit Service Rate,cardVisual,1064,326,478,111,Holdout Unit Service Rate,,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_chart_01,chart,Store Inventory by Region,bar,60,479,728,329,Store On Hand Units,DimStore.RegionName,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_chart_02,chart,DC Inventory by Distribution Center,bar,812,479,728,329,DC On Hand Units,DimDistributionCenter.DistributionCenter,MIXED_SCOPE_SUMMARY
+p_executive,p_executive_footer_01,footer,Snapshot 2026-04-24; Holdout 2026-02-02 to 2026-04-24. Distinct grains; totals are simulated development results.,textbox,60,858,1480,32,,,STATIC
+p_store_inventory,p_store_inventory_header_01,header,Store Inventory Intelligence,textbox,60,27,1420,73,,,STATIC
+p_store_inventory,p_store_inventory_subtitle_01,subtitle,Historical Store × SKU inventory position and physical inflow,textbox,60,104,1460,38,,,STATIC
+p_store_inventory,p_store_inventory_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_store_inventory,p_store_inventory_slicer_01,slicer,RegionName,slicer,60,166,352,56,,DimStore.RegionName,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_slicer_02,slicer,SyntheticCityCode,slicer,436,166,352,56,,DimStore.SyntheticCityCode,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_slicer_03,slicer,ABCClass,slicer,812,166,352,56,,DimProduct.ABCClass,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_slicer_04,slicer,Product Category,slicer,1188,166,352,56,,DimProduct.Product Category,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_kpi_01,kpi,Store On Hand Units,cardVisual,60,252,352,116,Store On Hand Units,,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_kpi_02,kpi,Store In Transit Units,cardVisual,436,252,352,116,Store In Transit Units,,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_kpi_03,kpi,Store Open Request Units,cardVisual,812,252,352,116,Store Open Request Units,,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_kpi_04,kpi,Store SKU Pairs,cardVisual,1188,252,352,116,Store SKU Pairs,,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_chart_01,chart,Store Units by Region,bar,60,411,728,210,Store On Hand Units,DimStore.RegionName,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_chart_02,chart,Store Units by ABC Class,bar,812,411,728,210,Store On Hand Units,DimProduct.ABCClass,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_details_01,details,Detailed Breakdown,tableEx,60,650,1480,165,,DimStore.Store | DimProduct.Product No | DimProduct.Product Category | FactStoreSkuAsOf.EndOnHandQty | FactStoreSkuAsOf.EndInTransitQty | FactStoreSkuAsOf.EndOpenRequestQty,ASOF_STORE_SNAPSHOT
+p_store_inventory,p_store_inventory_footer_01,footer,Snapshot only; Date slicers must NOT change Store OnHand. Returned units are Store-side inflow (assumed sellable in replay).,textbox,60,858,1480,32,,,STATIC
+p_dc_inventory,p_dc_inventory_header_01,header,DC Inventory Intelligence,textbox,60,27,1420,73,,,STATIC
+p_dc_inventory,p_dc_inventory_subtitle_01,subtitle,Frozen simulation replenishment positions; NOT corporate Overstock thresholds,textbox,60,104,1460,38,,,STATIC
+p_dc_inventory,p_dc_inventory_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_dc_inventory,p_dc_inventory_slicer_01,slicer,DistributionCenter,slicer,60,166,352,56,,DimDistributionCenter.DistributionCenter,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_slicer_02,slicer,ABCClass,slicer,436,166,352,56,,DimProduct.ABCClass,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_slicer_03,slicer,Product Category,slicer,812,166,352,56,,DimProduct.Product Category,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_kpi_01,kpi,DC On Hand Units,cardVisual,60,252,352,116,DC On Hand Units,,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_kpi_02,kpi,DC Supplier On Order Units,cardVisual,436,252,352,116,DC Supplier On Order Units,,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_kpi_03,kpi,DC Store Backlog Units,cardVisual,812,252,352,116,DC Store Backlog Units,,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_kpi_04,kpi,DC Above Frozen Target Slots,cardVisual,1188,252,352,116,DC Above Frozen Target Slots,,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_chart_01,chart,DC OnHand by DC,bar,60,411,728,210,DC On Hand Units,DimDistributionCenter.DistributionCenter,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_chart_02,chart,DC OnHand by ABC,bar,812,411,728,210,DC On Hand Units,DimProduct.ABCClass,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_details_01,details,Detailed Breakdown,tableEx,60,650,1480,165,,DimDistributionCenter.DistributionCenter | DimProduct.Product No | FactDCSkuAsOf.EndOnHandQty | FactDCSkuAsOf.EndOnOrderQty | FactDCSkuAsOf.NetInventoryPosition | FactDCSkuAsOf.TargetStockQty_FrozenPolicy,ASOF_DC_SNAPSHOT
+p_dc_inventory,p_dc_inventory_footer_01,footer,OnHand is physical; Net Position includes OnOrder minus Store backlog. Above simulation target is diagnostic only.,textbox,60,858,1480,32,,,STATIC
+p_service,p_service_header_01,header,Sales & Stockout Performance,textbox,60,27,1420,73,,,STATIC
+p_service,p_service_subtitle_01,subtitle,Date × Store positive observed demand and simulated units fulfilled / short,textbox,60,104,1460,38,,,STATIC
+p_service,p_service_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_service,p_service_slicer_01,slicer,Date,slicer,60,166,352,56,,DimDate.Date,DATE_STORE_SERVICE
+p_service,p_service_slicer_02,slicer,RegionName,slicer,436,166,352,56,,DimStore.RegionName,DATE_STORE_SERVICE
+p_service,p_service_slicer_03,slicer,SyntheticCityCode,slicer,812,166,352,56,,DimStore.SyntheticCityCode,DATE_STORE_SERVICE
+p_service,p_service_slicer_04,slicer,Store,slicer,1188,166,352,56,,DimStore.Store,DATE_STORE_SERVICE
+p_service,p_service_kpi_01,kpi,Customer Demand Units,cardVisual,60,252,352,116,Customer Demand Units,,DATE_STORE_SERVICE
+p_service,p_service_kpi_02,kpi,Customer Fulfilled Units,cardVisual,436,252,352,116,Customer Fulfilled Units,,DATE_STORE_SERVICE
+p_service,p_service_kpi_03,kpi,Customer Shortage Units,cardVisual,812,252,352,116,Customer Shortage Units,,DATE_STORE_SERVICE
+p_service,p_service_kpi_04,kpi,Customer Unit Service Rate,cardVisual,1188,252,352,116,Customer Unit Service Rate,,DATE_STORE_SERVICE
+p_service,p_service_chart_01,chart,Customer Demand over Time,line,60,411,728,210,Customer Demand Units | Customer Shortage Units,DimDate.Date,DATE_STORE_SERVICE
+p_service,p_service_chart_02,chart,Unfulfilled Demand by Store,bar,812,411,728,210,Customer Shortage Units,DimStore.Store,DATE_STORE_SERVICE
+p_service,p_service_details_01,details,Detailed Breakdown,tableEx,60,650,1480,165,,FactStoreDailyService.Date | FactStoreDailyService.Store | FactStoreDailyService.DemandQty | FactStoreDailyService.FulfilledQty | FactStoreDailyService.ShortageQty | FactStoreDailyService.ReturnInflowQty,DATE_STORE_SERVICE
+p_service,p_service_footer_01,footer,"Store / Date grain: Product slicers cannot filter service. These stockouts are simulated, not actual lost sales.",textbox,60,858,1480,32,,,STATIC
+p_supplier,p_supplier_header_01,header,Supplier Execution Simulation,textbox,60,27,1420,73,,,STATIC
+p_supplier,p_supplier_subtitle_01,subtitle,Cumulative synthetic PO / GRN experience; not observed supplier scorecards,textbox,60,104,1460,38,,,STATIC
+p_supplier,p_supplier_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_supplier,p_supplier_slicer_01,slicer,Supplier,slicer,60,166,352,56,,DimSupplier.Supplier,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_slicer_02,slicer,SupplierClass,slicer,436,166,352,56,,DimSupplier.SupplierClass,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_slicer_03,slicer,DistributionCenter,slicer,812,166,352,56,,DimDistributionCenter.DistributionCenter,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_kpi_01,kpi,Supplier Ordered Units,cardVisual,60,252,352,116,Supplier Ordered Units,,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_kpi_02,kpi,Supplier Received Units,cardVisual,436,252,352,116,Supplier Received Units,,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_kpi_03,kpi,Supplier Cancelled Units,cardVisual,812,252,352,116,Supplier Cancelled Units,,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_kpi_04,kpi,Supplier Open Units,cardVisual,1188,252,352,116,Supplier Open Units,,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_chart_01,chart,Ordered and Received by Supplier,bar,60,411,728,210,Supplier Ordered Units | Supplier Received Units,DimSupplier.Supplier,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_chart_02,chart,Open Orders by DC,bar,812,411,728,210,Supplier Open Units,DimDistributionCenter.DistributionCenter,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_details_01,details,Detailed Breakdown,tableEx,60,650,1480,165,,FactSupplierDCExecution.Supplier | FactSupplierDCExecution.DistributionCenter | FactSupplierDCExecution.OrderedQty | FactSupplierDCExecution.ReceivedQty | FactSupplierDCExecution.CancelledQty | FactSupplierDCExecution.OpenQty,CUMULATIVE_SUPPLIER_DC
+p_supplier,p_supplier_footer_01,footer,No Date slicer: this is a cumulative Supplier × DC simulation cohort. Receipt/Order is not supplier OTIF.,textbox,60,858,1480,32,,,STATIC
+p_opportunities,p_opportunities_header_01,header,Inventory Opportunities (Exploratory),textbox,60,27,1420,73,,,STATIC
+p_opportunities,p_opportunities_subtitle_01,subtitle,Zero-velocity Store-SKU screens only; NO actionable transfer / return / markdown recommendation,textbox,60,104,1460,38,,,STATIC
+p_opportunities,p_opportunities_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_opportunities,p_opportunities_slicer_01,slicer,RegionName,slicer,60,166,352,56,,DimStore.RegionName,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_slicer_02,slicer,SyntheticCityCode,slicer,436,166,352,56,,DimStore.SyntheticCityCode,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_slicer_03,slicer,Product Category,slicer,812,166,352,56,,DimProduct.Product Category,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_slicer_04,slicer,ABCClass,slicer,1188,166,352,56,,DimProduct.ABCClass,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_kpi_01,kpi,Zero Velocity Store SKU Pairs 28d,cardVisual,60,252,352,116,Zero Velocity Store SKU Pairs 28d,,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_kpi_02,kpi,Zero Velocity On Hand Units 28d,cardVisual,436,252,352,116,Zero Velocity On Hand Units 28d,,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_kpi_03,kpi,Zero Velocity Store SKU Pairs 84d,cardVisual,812,252,352,116,Zero Velocity Store SKU Pairs 84d,,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_kpi_04,kpi,Zero Velocity On Hand Units 84d,cardVisual,1188,252,352,116,Zero Velocity On Hand Units 84d,,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_chart_01,chart,28-Day Zero-Velocity Units by Region,bar,60,411,728,210,Zero Velocity On Hand Units 28d,DimStore.RegionName,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_chart_02,chart,84-Day Zero-Velocity Units by Category,bar,812,411,728,210,Zero Velocity On Hand Units 84d,DimProduct.Product Category,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_details_01,details,Detailed Breakdown,tableEx,60,650,1480,165,,DimStore.Store | DimProduct.Product No | FactStoreSkuAsOf.EndOnHandQty | FactStoreSkuAsOf.TrailingGrossUnits28 | FactStoreSkuAsOf.ZeroVelocityFlag28 | FactStoreSkuAsOf.TrailingGrossUnits84 | FactStoreSkuAsOf.ZeroVelocityFlag84,EXPLORATORY_NOT_APPROVED_POLICY
+p_opportunities,p_opportunities_footer_01,footer,"Zero demand is NOT proof of Overstock. No approved coverage, supplier-return, transfer, or markdown policy exists.",textbox,60,858,1480,32,,,STATIC
+p_methodology,p_methodology_header_01,header,Data Quality & Methodology,textbox,60,27,1420,73,,,STATIC
+p_methodology,p_methodology_subtitle_01,subtitle,"Sources, simulated vs observed metrics, as-of timing and analytical limitations",textbox,60,104,1460,38,,,STATIC
+p_methodology,p_methodology_home_01,home,Home,page_nav_button,1492,35,62,50,,p_index,STATIC
+p_methodology,p_methodology_kpi_01,kpi,Snapshot AsOf Date,cardVisual,60,218,352,116,Snapshot AsOf Date,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_kpi_02,kpi,Store SKU Pairs,cardVisual,436,218,352,116,Store SKU Pairs,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_kpi_03,kpi,Return Only Store SKU Pairs,cardVisual,812,218,352,116,Return Only Store SKU Pairs,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_kpi_04,kpi,Store Full History Returns Units,cardVisual,1188,218,352,116,Store Full History Returns Units,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_chart_01,chart,Source-and-Simulation Boundaries,text_panel,60,375,728,405,,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_chart_02,chart,Metric and Policy Caveats,text_panel,812,375,728,405,,,GOVERNANCE_DISCLOSURE
+p_methodology,p_methodology_footer_01,footer,Observed: Sales/returns. Simulated: Store/DC/Supplier flows; first future positive sale used as ORACLE launch proxy. Holdout repeatedly exposed.,textbox,60,858,1480,32,,,STATIC

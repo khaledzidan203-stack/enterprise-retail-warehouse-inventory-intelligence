@@ -1,0 +1,178 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "7d1245c607531e08cf1c",
+  "position": {
+    "x": 37,
+    "y": 616,
+    "width": 330,
+    "height": 253,
+    "z": 780,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "PROVENANCE & GRAIN",
+                    "textStyle": {
+                      "color": "#173B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "13pt",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "OBS  | Daily demand and returns: Date x Store",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SIM  | Daily fulfilled / shortage: Date x Store",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SIM  | Store inventory: Store x SKU, AsOf Apr 24",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SIM  | DC inventory: DC x SKU, AsOf Apr 24",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SIM  | Supplier execution: Supplier x DC cohort",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "EXP  | 28 / 56 / 84-day no-sales diagnostics",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Holdout: Feb 02 - Apr 24, 2026 (reused)",
+                    "textStyle": {
+                      "color": "#3C4B63",
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10.4pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "howCreated": "DraggedToCanvas"
+}

@@ -1,0 +1,90 @@
+table DimDate
+	lineageTag: 424677f6-9e32-4893-b6a7-3e33d1280025
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 28f69324-eec9-49ea-aaf7-d22b7cf1155b
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 77410dbf-4249-43de-843c-cc28f041beee
+			defaultHierarchy: LocalDateTable_b6945c99-bd22-46e1-ab38-f59772ff98b9.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		lineageTag: 0ffd29f8-f134-4acc-82a8-74b9b3c4d2d0
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 959bf5b2-c304-4a2b-ad71-58f1209c2f14
+		summarizeBy: none
+		sourceColumn: Quarter
+
+	column MonthNumber
+		dataType: int64
+		lineageTag: 40d794fe-8473-4b9a-a6c2-96fcada9d0b6
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: ae67928c-2983-4e2a-b553-987699c59960
+		summarizeBy: none
+		sourceColumn: MonthName
+
+	column YearMonth
+		dataType: string
+		lineageTag: a3692541-f2d8-4789-8250-9f0d7c3420ab
+		summarizeBy: none
+		sourceColumn: YearMonth
+
+	column MonthStartDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 76a13d7a-2585-41fc-9abc-4c84ef1e130d
+		summarizeBy: none
+		sourceColumn: MonthStartDate
+
+		variation Variation
+			isDefault
+			relationship: 43c77df5-5c04-4ede-8fe3-60516d9cf139
+			defaultHierarchy: LocalDateTable_14c1358d-852b-4c23-b1d2-47aab8ed9c1e.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ISOWeek
+		dataType: int64
+		lineageTag: d8aefea5-93a9-4a7f-815a-24075e2553e6
+		summarizeBy: sum
+		sourceColumn: ISOWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column DevelopmentPhase
+		dataType: string
+		lineageTag: 78e0b49f-76bd-4552-ba87-e55785425f87
+		summarizeBy: none
+		sourceColumn: DevelopmentPhase
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataRoot & "/powerbi_model_v1/DimDate.csv"), [Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    BlanksAsNull = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),
+				    Typed = Table.TransformColumnTypes(BlanksAsNull, {{"Date", type date}, {"Year", Int64.Type}, {"Quarter", type text}, {"MonthNumber", Int64.Type}, {"MonthName", type text}, {"YearMonth", type text}, {"MonthStartDate", type date}, {"ISOWeek", Int64.Type}, {"DevelopmentPhase", type text}}, "en-US")
+				in
+				    Typed
+
