@@ -1,11 +1,21 @@
-# Publication boundary and rights
+# Publication scope, provenance and licensing
 
-The original project is published with the owner's explicit authorization. The previous checkpoint's missing-provenance restriction was resolved: Mendeley Data publishes both exact RAW files under CC BY 4.0, and their SHA-256 hashes match the local originals. See [source attribution](../DATA_SOURCES.md). The source license also requires attribution when distributing adaptations; methodology identifies observed and simulated fields.
+## Included assets
 
-This release includes canonical Python/SQL/tests, configurations, governed fixtures, original RAW, final integrated V2 references, historical analytical and dimension CSVs, complete PBIP/PBIR/TMDL, all eight screenshots and relevant existing documentation. Original CSVs and report layouts/measures/relationships are preserved. NEW_REPLAY_V1 remains a distinct scenario; historical equivalence and Desktop runtime validation are not claimed.
+This public repository contains the original, preserved project deliverables: Python/SQLite source and automated tests, original retail RAW CSVs, published historical V2 integrated/reference data, supplied synthetic scenario fixtures, 9 historical reporting CSV inputs, complete Power BI PBIP/PBIR/TMDL, 8 authentic screenshots, configuration, and technical documentation.
 
-Excluded content: `.pbi` caches and local settings; bytecode; environments; private dashboard construction scripts; backups/recovery copies; temporary checkpoint and build outputs; superseded integrated V1 datasets. Their local originals remain untouched. Final V2 and its historical presentation tables are the report's published baseline. Source-code license selection remains separate from the dataset's CC BY license; this repository does not invent a code license.
+**Source:** [Retail Transactions and Stocks Data — Mendeley Data, V1](../DATA_SOURCES.md), licensed **CC BY 4.0**. The two original RAW files were checked against publisher SHA-256 fingerprints. Public source data has been adapted into governed datasets and illustrated through modeled warehouse and supplier scenarios. Give credit to the original source when redistributing source-derived material.
 
-`release_manifest.json` lists the exact complete publication and historical source hashes. `prepare_release.py --check` checks this list, credential/personal-path patterns, file sizes, original data hashes, required report files/pages/visuals/measures, screenshots and nine parameterized imports. Pattern scanning is an essential check, not a universal guarantee against every possible secret. Git is initialized from this complete allowlist; no previous temporary source-only history or private working history is reused. No force-push is used.
+**Different rights:** CC BY 4.0 covers the cited source dataset, **not automatically this project's authored software, DAX, report layouts or other materials**. No general-purpose code license is asserted.
 
-The included screenshots show the original historical results. The report must be configured using `python configure_powerbi.py` and the included historical data, not generated replacement outputs. Actual Power BI refresh/render behavior remains `POWER_BI_RUNTIME_NOT_VERIFIED` until tested in Desktop. No analytical pipeline was rerun for this publication.
+## Excluded development and machine-specific material
+
+This release intentionally omits local Power BI caches, machine-specific settings, virtual environments, temporary build outputs, private dashboard construction utilities, backups and superseded draft design/checkpoint documents. Such files are unnecessary to inspect the final report or run the documented analytical code.
+
+## Reproducibility boundary
+
+The historical final V2 Power BI report and nine reference inputs are preserved. The runnable **NEW_REPLAY_V1** reconstructs a different explicitly modeled simulation: historical inventory/service equivalence has **not** been established. Actual Power BI Desktop refresh and visual interaction are **not yet independently runtime verified**.
+
+`release_manifest.json` is the current list of published paths and protected source asset hashes. The GitHub Actions workflow runs publication/file integrity checks and an executable Python/SQLite fictional-sample validation; it is not a Power BI Desktop runtime.
+
+[Read the methodology](methodology.md) · [Source attribution and raw hashes](../DATA_SOURCES.md) · [Validation evidence](FINAL_RELEASE_VALIDATION.md)

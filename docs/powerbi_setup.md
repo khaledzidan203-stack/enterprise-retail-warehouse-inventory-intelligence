@@ -1,23 +1,37 @@
-# Power BI portability and verification
+# Open the original Power BI report
 
-The original `powerbi/Enterprise Retail Inventory Intelligence.pbip`, both Report/SemanticModel folders and all eight screenshots are included. The source license and RAW publisher hashes were verified before publication (see `DATA_SOURCES.md`). No private dashboard-generation script is included.
+The repository contains the original historical **8-page Power BI PBIP** project with report and semantic-model definitions (PBIR/TMDL), **51 DAX measures**, **18 relationships** and **9 included historical CSV inputs**. All eight page screenshots are in [the gallery](../README.md#dashboard-gallery).
 
-## Configure one path
+## Requirements
 
-The new named Power Query parameter `DataRoot` is defined in the semantic model's `definition/expressions.tmdl`. It is a required text parameter with an initially empty value, so refresh needs explicit configuration. All nine CSV imports now use `DataRoot & "/<schema-folder>/<file>.csv"`; existing column order, M conversions and DAX remain unchanged.
+- A compatible **Power BI Desktop** installation on Windows, including support for PBIP/PBIR/TMDL project files.
+- Python **3.11+** for the one-time source path setup, and the checked-out repository on your computer.
 
-With Power BI Desktop closed, run `python configure_powerbi.py` from the repository. It verifies the nine original CSV hashes and configures DataRoot to the absolute **historical `<checkout>/data` folder**. It does not execute a pipeline or modify CSVs. Manual alternative: change just the quoted DataRoot value in expressions.tmdl to that folder, using forward slashes and no trailing slash. Do not point the original report at `build/` unless deliberately reviewing the separately labeled new simulation. `python configure_powerbi.py --check` verifies the historical inputs without editing the model.
+## Configure historical data
 
-Open the PBIP in a compatible Power BI Desktop. Refresh all tables, check all eight pages and navigation, inspect date and entity slicers, and compare service/stock/supplier measures with the included historical CSVs; generated SQLite views describe NEW_REPLAY_V1 and are not an equivalent historical oracle. A sample run has fictional entities and different numerical results. Historical narrative labels/screenshots are retained and do not certify or describe that sample. Dynamic filters tied to historical entities may need owner review after sample refresh; no visual redesign was performed.
+From the repository root, with **Power BI Desktop closed**:
 
-Microsoft documents [TMDL editing and refresh behavior](https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-tmdl-view) and [Power Query parameters](https://learn.microsoft.com/en-us/power-query/power-query-query-parameters). Editing model metadata alone is not a successful data refresh.
+```powershell
+python configure_powerbi.py --check
+python configure_powerbi.py
+```
 
-## Precisely scoped changes
+The first command checks the hashes of all nine historical CSV files without editing the report. The second verifies the same inputs and writes the local absolute `data/` location into the `DataRoot` expression in the semantic model. It does **not** generate, alter or download data.
 
-Desktop was checked and not running before edits. Eleven original files were copied byte-for-byte into ignored `build/powerbi_original`: the nine CSV-import tables, `model.tmdl`, and one Executive Overview visual. A twelfth file, `expressions.tmdl`, was created. No table expression other than the nine `File.Contents` arguments changed. `model.tmdl` only adds the named expression reference.
+Open **[Enterprise Retail Inventory Intelligence.pbip](../powerbi/Enterprise%20Retail%20Inventory%20Intelligence.pbip)** and refresh the model's nine CSV tables.
 
-The affected Executive Overview visual's stale sort binding `analytics dim_date.calendar_date` was replaced by `DimDate.Date`. Its visual ID is `813d135d1d6e4570d89f`; its page ID is `3f0c385e4017cd30f78d`. No layout, styling, navigation, measure or relationship change was made.
+**Manual alternative:** the parameter is defined in `powerbi/Enterprise Retail Inventory Intelligence.SemanticModel/definition/expressions.tmdl`. Set the quoted `DataRoot` to your local repository's `data/` folder with forward slashes and no trailing slash. Keep the original reporting sources under `data/analytics_v1/` and `data/powerbi_model_v1/`. Those folder names are retained presentation contracts for the historical final V2 tables.
 
-Static checks found eight pages, 112 visuals, 51 measures and 220 valid explicit column/measure bindings, including sorting. They compare the generated nine CSV headers with TMDL source columns, retain the existing typed conversions, and check the single parameter reference in each import. Existing relationship and measure definitions are hash-preserved against pre-change evidence.
+Do **not** substitute `build/` outputs from NEW_REPLAY_V1 unless you explicitly want to study a different modeled scenario; those outputs differ from the preserved historical report.
 
-**POWER_BI_RUNTIME_NOT_VERIFIED.** This execution had no accessible Power BI automation/refresh runtime. JSON/TMDL text checks cannot establish Desktop opening, query execution, rendered visuals or DAX evaluation. Those remain required owner-side acceptance checks before claiming full reproducibility.
+## Recommended acceptance checklist
+
+1. Confirm the nine CSVs refresh without Power Query errors.
+2. Confirm eight pages open with working INDEX and Home navigation.
+3. Test appropriate Store, Product, DC, Supplier and Date filters; remember snapshots and supplier cohorts do not share daily Date grain.
+4. Compare network on-hand, service/shortage and supplier measures with the preserved historical CSVs.
+5. Confirm screenshot correspondence and any page visuals that use date-grain or model-policy assumptions.
+
+**Verification boundary:** published source checks confirm eight pages, 112 visuals, 51 DAX measures, 18 relationships and 9 imports. **POWER_BI_RUNTIME_NOT_VERIFIED** means the publisher has *not* independently confirmed Desktop opening, data refresh, rendered DAX or slicer behavior on a new machine. Source-level validation is not a substitute.
+
+[Report guide](REPORT_PAGE_GUIDE.md) · [Analytical dictionary](analytics_dictionary.md) · [Microsoft Power Query parameter documentation](https://learn.microsoft.com/en-us/power-query/power-query-query-parameters)
